@@ -4,15 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/botonInicio"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:text="@string/iniciar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:ignore="MissingConstraints" />
+    tools:context=".DB.inicioApp">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TitanFlex</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="mensajeFormulario">Ingresa los datos requeridos</string>
+    <string name="fechaUsuarioFormulario">Fecha de nacimiento:</string>
+    <string name="altura">Altura:</string>
+    <string name="peso">Peso:</string>
+    <string name="sexo">Sexo:</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
 </resources>
