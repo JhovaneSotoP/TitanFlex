@@ -8,4 +8,9 @@
     <string name="sexo">Sexo:</string>
     <string name="male">Hombre</string>
     <string name="female">Mujer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="peso_kg">
+        <item>Kg.</item>
+    </string-array>
 </resources>

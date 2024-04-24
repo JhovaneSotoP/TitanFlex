@@ -86,30 +86,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/fechaUsuarioFormulario"/>
-    <DatePicker
+    <Button
         android:id="@+id/fechaFormulario"
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="50dp"
+        android:text="Ingresar fecha"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/altura"/>
-    <NumberPicker
+    <EditText
         android:id="@+id/alturaFormulario"
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="50dp"
+        android:inputType="numberDecimal"
+        tools:text="50"
+        android:textAlignment="center"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/peso"/>
-    <NumberPicker
+
+    <EditText
         android:id="@+id/pesoFormulario"
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="50dp"
+        android:inputType="numberDecimal"
+        tools:text="50"
+        android:textAlignment="center"
+        tools:ignore="LabelFor"
+        android:importantForAutofill="no" />
     <Button
         android:id="@+id/btn_Formulario"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:text="Continuar"/>
+        android:text="Continuar"
+        android:enabled="false"
+        style="@style/boton_a_desactivado"/>
 </LinearLayout>
