@@ -6,125 +6,136 @@
     android:layout_height="match_parent"
     tools:context=".formularioInicial"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mensajeFormulario"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sexo"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="180dp">
-        <androidx.cardview.widget.CardView
-            android:id="@+id/viewMale"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_marginEnd="16dp"
-            app:cardBackgroundColor="@color/teal_200"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toStartOf="@id/viewFemale"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/ic_male"
-                    app:tint="@color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/male"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/viewFemale"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            app:cardBackgroundColor="@color/teal_200"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/viewMale"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_height="wrap_content"
+                android:text="@string/mensajeFormulario"/>
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="@string/sexo"/>
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:src="@drawable/ic_female"
-                    app:tint="@color/white" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/viewMale"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginEnd="16dp"
+                    app:cardBackgroundColor="@color/teal_200"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toStartOf="@id/viewFemale"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/female"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.cardview.widget.CardView>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/fechaUsuarioFormulario"/>
-    <Button
-        android:id="@+id/fechaFormulario"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="Ingresar fecha"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/altura"/>
-    <EditText
-        android:id="@+id/alturaFormulario"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="numberDecimal"
-        tools:text="50"
-        android:textAlignment="center"
-        tools:ignore="LabelFor"
-        android:importantForAutofill="no" />
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/ic_male"
+                            app:tint="@color/white" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/peso"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/male"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/pesoFormulario"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:inputType="numberDecimal"
-        tools:text="50"
-        android:textAlignment="center"
-        tools:ignore="LabelFor"
-        android:importantForAutofill="no" />
-    <Button
-        android:id="@+id/btn_Formulario"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:text="Continuar"
-        android:enabled="false"
-        style="@style/boton_a_desactivado"/>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/viewFemale"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    app:cardBackgroundColor="@color/teal_200"
+                    app:cardCornerRadius="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/viewMale"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/ic_female"
+                            app:tint="@color/white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/female"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fechaUsuarioFormulario"/>
+            <Button
+                android:id="@+id/fechaFormulario"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="Ingresar fecha"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/altura"/>
+            <EditText
+                android:id="@+id/alturaFormulario"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="numberDecimal"
+                tools:text="50"
+                android:textAlignment="center"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/peso"/>
+
+            <EditText
+                android:id="@+id/pesoFormulario"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="numberDecimal"
+                tools:text="50"
+                android:textAlignment="center"
+                tools:ignore="LabelFor"
+                android:importantForAutofill="no" />
+            <Button
+                android:id="@+id/btn_Formulario"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:text="Continuar"
+                android:enabled="false"
+                style="@style/boton_a_desactivado"/>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

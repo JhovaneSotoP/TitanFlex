@@ -9,5 +9,8 @@ data class entidadUsuarios (
     val sexo: Int,
     val diaNacimiento: Int,
     val mesNacimiento: Int,
-    val anioNacimiento: Int
+    val anioNacimiento: Int,
+    val unidadMasa:Int,
+    val unidadDistancia:Int,
+    val unidadMedidaCorporal:Int
 )

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".ActividadSecundaria">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarPrincipal"
+        android:id="@+id/toolbarSecundario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"
@@ -22,51 +22,36 @@
             android:gravity="right"
             android:layout_margin="10dp">
             <TextView
-                android:id="@+id/tituloVentana"
+                android:id="@+id/tituloVentanaSecundaria"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Inicio"
                 style="@style/text_titulo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
 
             <ImageView
-                android:id="@+id/btAjustes"
+                android:id="@+id/btRegresar"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                app:srcCompat="@drawable/ic_ajustes"
+                app:srcCompat="@drawable/ic_regresar"
                 app:tint="@color/gris_oscuro"
-                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
-
     <FrameLayout
-        android:id="@+id/contenedorFrame"
+        android:id="@+id/contenedorFrameSecundario"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarPrincipal"
-        app:layout_constraintBottom_toTopOf="@id/menuPrincipal"
+        app:layout_constraintTop_toBottomOf="@id/toolbarSecundario"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/menuPrincipal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/menu_principal"
-        app:labelVisibilityMode="selected"
-        style="@style/estiloMenuPrincipal"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

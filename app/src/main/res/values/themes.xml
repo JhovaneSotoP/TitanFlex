@@ -28,4 +28,60 @@
         <item name="backgroundTint">@color/gris_claro</item>
     </style>
 
+    <style name="text_titulo">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/gris_oscuro</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="text_subtitulo">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/gris_oscuro</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="text_normal">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/gris_oscuro</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="text_a_itemsemanal">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/gris_oscuro</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="text_b_itemsemanal">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/gris_oscuro</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">7dp</item>
+    </style>
+
+    <style name="itemsemanal">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">7dp</item>
+        <item name="android:layout_marginRight">7dp</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="android:foregroundTint">@color/azul_a</item>
+    </style>
+
+    <style name="contenedor_semanal">
+        <item name="cardBackgroundColor">@color/gris_claro</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="cardCornerRadius">10dp</item>
+    </style>
 </resources>

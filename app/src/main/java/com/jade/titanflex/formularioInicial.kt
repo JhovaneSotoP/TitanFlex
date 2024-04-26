@@ -15,8 +15,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.jade.titanflex.baseDatos.dbPrincipal
-import com.jade.titanflex.baseDatos.entidadRegistroAltura
-import com.jade.titanflex.baseDatos.entidadRegistroPeso
+import com.jade.titanflex.baseDatos.entidadMedidas
 import com.jade.titanflex.baseDatos.entidadUsuarios
 import kotlinx.coroutines.launch
 import java.time.LocalDate
@@ -72,13 +71,19 @@ class formularioInicial : AppCompatActivity() {
 
         btContinuar.setOnClickListener {
             lifecycleScope.launch {
-                dbPrincipal.usersDAO().agregar(usuario = entidadUsuarios(0,sexo,dia,mes,anio))
-                dbPrincipal.registroPesoDAO().agregar(pesoNuevo = entidadRegistroPeso(peso=peso,dia=fechaActual.dayOfMonth,mes=fechaActual.monthValue,anio=fechaActual.year))
-                dbPrincipal.registroAlturaDAO().agregar(altura = entidadRegistroAltura(altura = altura,dia=fechaActual.dayOfMonth,mes=fechaActual.monthValue,anio=fechaActual.year))
-                println("${fechaActual.dayOfMonth}/${fechaActual.monthValue}/${fechaActual.year}")
-                var vista= Intent(this@formularioInicial,vistaPrincipal::class.java)
-                startActivity(vista)
-                finish()
+                try {
+                    dbPrincipal.usersDAO().agregar(usuario = entidadUsuarios(0,sexo,dia,mes,anio,1,3,5))
+                    dbPrincipal.medidasDAO().agregar(medida = entidadMedidas(id_medida = 1, valor = peso, dia = fechaActual.dayOfMonth,mes=fechaActual.monthValue, anio = fechaActual.year))
+                    dbPrincipal.medidasDAO().agregar(medida = entidadMedidas(id_medida = 5, valor = altura, dia = fechaActual.dayOfMonth,mes=fechaActual.monthValue, anio = fechaActual.year))
+
+                    println("${fechaActual.dayOfMonth}/${fechaActual.monthValue}/${fechaActual.year}")
+                    var vista= Intent(this@formularioInicial,vistaPrincipal::class.java)
+                    startActivity(vista)
+                    finish()
+                }catch (ex:Exception){
+                    Toast.makeText(this@formularioInicial,"${ex.message}",Toast.LENGTH_LONG).show()
+
+                }
             }
         }
     }

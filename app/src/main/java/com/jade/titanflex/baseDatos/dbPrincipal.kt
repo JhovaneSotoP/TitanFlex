@@ -4,11 +4,11 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 
 @Database(
-    entities=[entidadUsuarios::class,entidadRegistroPeso::class,entidadRegistroAltura::class],
-    version=3
+    entities=[entidadUsuarios::class,entidadMedidas::class,entidadUnidadMedida::class],
+    version=5
 )
 abstract class dbPrincipal: RoomDatabase() {
     abstract fun usersDAO():daoUsuarios
-    abstract fun registroPesoDAO():daoRegistroPeso
-    abstract fun registroAlturaDAO():daoRegistroAltura
+    abstract fun medidasDAO():daoMedidas
+    abstract fun unidadMedidaDAO():daoUnidadMedida
 }
