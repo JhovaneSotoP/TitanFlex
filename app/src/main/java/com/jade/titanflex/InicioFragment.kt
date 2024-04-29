@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,14 +31,26 @@ class InicioFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
+    lateinit var contenedorSemanal:CardView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inicio, container, false)
+        val view= inflater.inflate(R.layout.fragment_inicio, container, false)
+
+        contenedorSemanal=view.findViewById(R.id.contenedor_semanal)
+        contenedorSemanal.setOnClickListener {
+            val vista= Intent(context,ActividadSecundaria::class.java)
+            vista.putExtra("vista",objetivoSemanalFragment::class.java)
+            vista.putExtra("titulo","Objetivos Semanales")
+            startActivity(vista)
+        }
+
+        return view
     }
 
     companion object {

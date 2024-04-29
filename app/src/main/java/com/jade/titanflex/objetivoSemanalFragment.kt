@@ -1,12 +1,10 @@
 package com.jade.titanflex
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -15,10 +13,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [rutinasFragment.newInstance] factory method to
+ * Use the [objetivoSemanalFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class rutinasFragment : Fragment() {
+class objetivoSemanalFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -31,23 +29,12 @@ class rutinasFragment : Fragment() {
         }
     }
 
-    lateinit var crearRutina: Button
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_rutinas, container, false)
-
-        crearRutina=view.findViewById(R.id.btCrearRutina)
-        crearRutina.setOnClickListener {
-            val vista= Intent(context,ActividadSecundaria::class.java)
-            vista.putExtra("vista",crearRutinaFragment::class.java)
-            vista.putExtra("titulo","Crear rutina")
-            startActivity(vista)
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_objetivo_semanal, container, false)
     }
 
     companion object {
@@ -57,12 +44,12 @@ class rutinasFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment rutinasFragment.
+         * @return A new instance of fragment objetivoSemanalFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            rutinasFragment().apply {
+            objetivoSemanalFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
