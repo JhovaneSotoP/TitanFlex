@@ -1,0 +1,1 @@
+La funcion principal de esta aplicacion es crear y administrar rutinas de ejercicios, ya sea en casa o gimnasio, ademas de mostrar los avances generados por el usuario, ya sea en volumen o repeticiones.
