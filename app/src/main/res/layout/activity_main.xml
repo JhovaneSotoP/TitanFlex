@@ -11,8 +11,11 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:text="@string/iniciar"
+        android:background="@color/amarillo_a"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,12 +31,31 @@ class anadirEjercicioFragment : Fragment() {
         }
     }
 
+    lateinit var barraBusqueda:SearchView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_anadir_ejercicio, container, false)
+        val view= inflater.inflate(R.layout.fragment_anadir_ejercicio, container, false)
+
+        barraBusqueda=view.findViewById(R.id.barraBusquedaEjercicios)
+        barraBusqueda.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if(query!=null){
+                    Toast.makeText(context,"$query",Toast.LENGTH_SHORT).show()
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+
+
+        })
+
+        return view
     }
 
     companion object {
