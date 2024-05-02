@@ -43,7 +43,7 @@ class crearRutinaFragment : Fragment() {
         agregarEjercicio.setOnClickListener {
             val vista= Intent(context,ActividadSecundaria::class.java)
             vista.putExtra("vista",anadirEjercicioFragment::class.java)
-            vista.putExtra("titulo","Buscar                             Ejercicio")
+            vista.putExtra("titulo","Buscar Ejercicio")
             startActivity(vista)
         }
 

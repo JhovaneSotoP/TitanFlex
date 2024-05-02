@@ -18,13 +18,7 @@
             android:name=".ActividadSecundaria"
             android:exported="false" />
         <activity
-            android:name=".ajustesActivity"
-            android:exported="false" />
-        <activity
             android:name=".vistaPrincipal"
-            android:exported="false" />
-        <activity
-            android:name=".inicioApp"
             android:exported="false" />
         <activity
             android:name=".formularioInicial"
