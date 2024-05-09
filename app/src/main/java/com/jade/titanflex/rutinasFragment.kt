@@ -41,9 +41,9 @@ class rutinasFragment : Fragment() {
 
         crearRutina=view.findViewById(R.id.btCrearRutina)
         crearRutina.setOnClickListener {
-            val vista= Intent(context,ActividadSecundaria::class.java)
-            vista.putExtra("vista",crearRutinaFragment::class.java)
-            vista.putExtra("titulo","Crear rutina")
+            val vista= Intent(context,crearRutinaActivity::class.java)
+            //vista.putExtra("vista",crearRutinaFragment::class.java)
+            //vista.putExtra("titulo","Crear rutina")
             startActivity(vista)
         }
 

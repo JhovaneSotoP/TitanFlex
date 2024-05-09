@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".detalleEjercicioFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMultimediaEjercicios"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp">
+                    <TextView
+                        android:id="@+id/tvNombreDetalleEjercicio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Sentadilla"
+                        style="@style/text_titulo"/>
+                    <TextView
+                        android:id="@+id/tvCategoriaDetalleEjercicio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Pierna"
+                        style="@style/text_subtitulo"/>
+                    <TextView
+                        android:id="@+id/tvdescripcionDetalleEjercicio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:text="AKSKASDJASKJDKASDKASDJLAKSJDLASKJDLASKJDLASKDJALSKJDASLKJD"
+                        style="@style/text_normal"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/equipo_necesario"
+                        style="@style/text_subtitulo"
+                        tools:ignore="HardcodedText" />
+                    <TextView
+                        android:id="@+id/tvEquipoDetalleEjercicio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="-Ropero"
+                        style="@style/text_normal"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Músculos involucrados"
+                        style="@style/text_subtitulo"
+                        android:layout_marginTop="20dp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/ivImagenMusculoDetalleEjercicio"
+                            android:layout_width="0dp"
+                            android:layout_height="180dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/no_hay_imagen"/>
+                        <TextView
+                            android:id="@+id/tvMusculosDetalleEjercicio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/text_normal"
+                            tools:text="Mamei"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="20dp">
+
+            <Button
+                android:id="@+id/btCancelarDetalleEjercicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelar"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/btAceptarDetalleEjercicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aceptar"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

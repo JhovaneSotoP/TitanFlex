@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [anadirEjercicioFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class anadirEjercicioFragment : Fragment() {
+class anadirEjercicioFragment : Fragment(),OnItemClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -45,6 +48,7 @@ class anadirEjercicioFragment : Fragment() {
     lateinit var adapter: itemMesRVAdapter
     private val itemViewModel:itemMesRVViewModel by viewModels()
     lateinit var barraBusqueda:SearchView
+    lateinit var cantResultados:TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,20 +58,20 @@ class anadirEjercicioFragment : Fragment() {
         val view= inflater.inflate(R.layout.fragment_anadir_ejercicio, container, false)
 
 
-
+        cantResultados=view.findViewById(R.id.tvCantResultadosEjercicio)
         barraBusqueda=view.findViewById(R.id.barraBusquedaEjercicios)
         barraBusqueda.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if(query!=null){
-                    actualizardatos(query)
-                    Toast.makeText(context,"$query",Toast.LENGTH_SHORT).show()
-                }else{
-                    actualizardatos("")
-                }
+
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText!=null){
+                    actualizardatos(newText)
+                }else{
+                    actualizardatos("")
+                }
                 return true
             }
 
@@ -75,7 +79,7 @@ class anadirEjercicioFragment : Fragment() {
         })
 
         recycler=view.findViewById(R.id.rvMostrarEjercicios)
-        adapter= itemMesRVAdapter(itemViewModel.elementos)
+        adapter= itemMesRVAdapter(itemViewModel.elementos,this)
         recycler.adapter=adapter
 
         recycler.layoutManager= LinearLayoutManager(context)
@@ -102,13 +106,16 @@ class anadirEjercicioFragment : Fragment() {
                     }
 
                     var imagen:String=""
-                    val imagenes=dbPrincipal.multimediaDAO().extraerSegunID(salida[n-1].exercise_base)
+                    val imagenes=dbPrincipal.multimediaDAO().extraerSegunID(salida[n-1].id)
                     if(imagenes.isNotEmpty()){
                         imagen=imagenes[0].url
                     }
-                    itemViewModel.elementos.add(itemMesRV(imagen,salida[n-1].name,desc))
+                    itemViewModel.elementos.add(itemMesRV(imagen,salida[n-1].name,desc,salida[n-1].id))
                 }
+                cantResultados.text="${salida.size} resultados"
                 adapter.notifyDataSetChanged()
+
+
             }
         }
     }
@@ -131,5 +138,22 @@ class anadirEjercicioFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onItemClick(position: Int) {
+        //Toast.makeText(context,"$position",Toast.LENGTH_SHORT).show()
+        val bundle=Bundle()
+        bundle.putInt("id",position)
+
+        parentFragmentManager.setFragmentResult("key",bundle)
+        activity?.supportFragmentManager?.commit {
+
+            val nuevoFragmento = detalleEjercicioFragment()
+            replace(R.id.contenedorFrameCrearRutina, nuevoFragmento)
+
+            replace<detalleEjercicioFragment>(R.id.contenedorFrameCrearRutina)
+            setReorderingAllowed(true)
+            addToBackStack("replacement")
+        }
     }
 }

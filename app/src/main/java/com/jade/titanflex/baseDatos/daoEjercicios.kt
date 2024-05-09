@@ -10,7 +10,8 @@ import androidx.room.Update
 interface daoEjercicios {
     @Query("SELECT * FROM entidadEjercicio")
     suspend fun extraerTodo():List<entidadEjercicio>
-
+    @Query("SELECT * FROM entidadEjercicio WHERE id=:id")
+    suspend fun extraerPorID(id:Int):List<entidadEjercicio>
     @Query("SELECT COUNT(*) FROM entidadEjercicio")
     suspend fun numeroRegistros():Int
     @Query("SELECT MAX(id) FROM entidadEjercicio")

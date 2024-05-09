@@ -3,20 +3,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".crearRutinaFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/nombreRutina"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <EditText
+            android:id="@+id/descansoEntreRutinas"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="numberDecimal"
+            tools:text="50"
+            android:textAlignment="center"
+            tools:ignore="LabelFor,MissingConstraints"
+            android:importantForAutofill="no"
+            android:text="0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nombreRutina"/>
+
         <Button
             android:id="@+id/btAnadirEjercicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Añadir ejercicio"/>
-
-    </LinearLayout>
+            android:text="Añadir ejercicio"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descansoEntreRutinas"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCrearRutina"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btAnadirEjercicio"
+            app:layout_constraintBottom_toTopOf="@id/btGuardarRutina"/>
+        <Button
+            android:id="@+id/btGuardarRutina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvCrearRutina"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
