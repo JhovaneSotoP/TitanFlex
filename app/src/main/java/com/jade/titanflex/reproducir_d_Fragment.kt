@@ -54,6 +54,8 @@ class reproducir_d_Fragment : Fragment() {
 
             val dbPrincipal= Room.databaseBuilder(requireContext(), dbPrincipal::class.java,"user_data").build()
             val entrenamiento=dbPrincipal.enntrenamientoDAO().extraerPorID(id)
+            val lista_1= mutableListOf<elementosMusculo>()
+            val lista_2= mutableListOf<elementosMusculo>()
             if(entrenamiento.size>0){
                 var temp=0
                 tiempo=entrenamiento[0].duracion
@@ -68,8 +70,7 @@ class reproducir_d_Fragment : Fragment() {
                         temp=ejer[n-1].id_ejercicio
                     }
                 }
-                val lista_1= mutableListOf<elementosMusculo>()
-                val lista_2= mutableListOf<elementosMusculo>()
+
                 for (ejercicio in ejer){
                     val musc=dbPrincipal.musculosEjerciciosDAO().extraerPrimarioPorID(ejercicio.id_ejercicio)
                     for (muscu in musc){
@@ -85,7 +86,7 @@ class reproducir_d_Fragment : Fragment() {
 
                     }
                 }
-                crearManiqui(requireContext(),image_a,image_b,lista_1,lista_2)
+
             }
 
             tiempoTV.setText(String.format("%02d:%02d minutos", tiempo/60, (tiempo)%60))
@@ -95,6 +96,7 @@ class reproducir_d_Fragment : Fragment() {
             repeticionesTV.setText("${repeticiones} repeticiones")
             volumenTV.text= "${volumen} kgs."
 
+            crearManiqui(requireContext(),image_a,image_b,lista_1,lista_2)
         }
 
     }

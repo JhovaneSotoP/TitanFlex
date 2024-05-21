@@ -1,20 +1,34 @@
 package com.jade.titanflex
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jade.titanflex.baseDatos.dbPrincipal
+import kotlinx.coroutines.launch
+import java.time.LocalDate
 
 
 class vistaPrincipal : AppCompatActivity() {
     var cadena: String ="Inicio"
     lateinit var ajustes: ImageView
     lateinit var titulo:TextView
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    val fecha= LocalDate.now()
+
+
     private lateinit var navigator:BottomNavigationView
     private val mOnNavMenu=BottomNavigationView.OnNavigationItemSelectedListener{ item ->
         when(item.itemId){
@@ -56,6 +70,8 @@ class vistaPrincipal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_principal)
 
+
+
         titulo=findViewById(R.id.tituloVentana)
         ajustes=findViewById(R.id.btAjustes)
         ajustes.setOnClickListener {
@@ -75,4 +91,6 @@ class vistaPrincipal : AppCompatActivity() {
             //addToBackStack("replacement")
         }
     }
+
+
 }

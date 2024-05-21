@@ -15,6 +15,8 @@ interface daoEntrenamiento {
     suspend fun extraerPorID(ID:Int):List<entidadEntrenamiento>
     @Query("SELECT MAX(id) FROM entidadEntrenamiento")
     suspend fun ultimoID():Int
+    @Query("SELECT * FROM entidadEntrenamiento WHERE dia=:dia AND mes=:mes AND anio=:anio")
+    suspend fun extraerPorFecha(dia:Int,mes:Int,anio:Int):List<entidadEntrenamiento>
     @Insert
     suspend fun agregar(entrenamiento: entidadEntrenamiento)
     @Update
