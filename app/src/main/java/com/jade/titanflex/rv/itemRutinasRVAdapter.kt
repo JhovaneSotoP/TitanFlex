@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.jade.titanflex.OnItemClickListener
 import com.jade.titanflex.R
+import com.jade.titanflex.crearManiqui
 import com.jade.titanflex.listenerRutina
 
 class itemRutinasRVAdapter(val items:List<itemRutina>,private val listener:listenerRutina, private val contexto:Context): RecyclerView.Adapter<itemRutinaRVViewHolder>() {
@@ -30,6 +31,7 @@ class itemRutinasRVAdapter(val items:List<itemRutina>,private val listener:liste
         holder.iniciar.setOnClickListener {
             listener.reproducirRutina(items[position].id_rutina)
         }
+        listener.agregarManiqui(contexto,holder.imagen_a,holder.imagen_b,items[position].muscPrin,items[position].muscSec)
 
     }
 }

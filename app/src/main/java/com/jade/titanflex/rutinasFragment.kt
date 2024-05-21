@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Adapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.text.parseAsHtml
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -73,7 +75,32 @@ class rutinasFragment : Fragment(),listenerRutina{
             itemViewModel.elementos.clear()
             for (n in 1..rutinas.size){
                 val num=dbPrincipal.ejerciciosRutinaDAO().numeroRegistros(rutinas[n-1].id)
-                val item=itemRutina(rutinas[n-1].nombre,num,rutinas[n-1].id, listOf<Int>(0),listOf<Int>(0))
+
+                val lista_1= mutableListOf<elementosMusculo>()
+                val lista_2= mutableListOf<elementosMusculo>()
+                val ejercicios=dbPrincipal.ejerciciosRutinaDAO().extraerPorId(rutinas[n-1].id)
+
+
+                for(ejercicio in ejercicios){
+                    val principales=dbPrincipal.musculosEjerciciosDAO().extraerPrimarioPorID(ejercicio.id_ejercicio)
+
+                    for(n in 1..principales.size){
+                        val item=dbPrincipal.musculoDAO().extraerPorID(principales[n-1].num)
+                        lista_1.add(elementosMusculo(item[0].imageMain,item[0].is_front))
+                    }
+
+                    val secundarios=dbPrincipal.musculosEjerciciosDAO().extraerSecundarioPorID(ejercicio.id_ejercicio)
+                    for(n in 1..secundarios.size){
+                        val item=dbPrincipal.musculoDAO().extraerPorID(secundarios[n-1].num)
+                        lista_2.add(elementosMusculo(item[0].imageSecondary,item[0].is_front))
+                    }
+
+
+                    println("${principales.size}--${secundarios.size}")
+
+                }
+
+                val item=itemRutina(rutinas[n-1].nombre,num,rutinas[n-1].id,lista_1,lista_2)
                 itemViewModel.elementos.add(item)
 
             }
@@ -114,6 +141,18 @@ class rutinasFragment : Fragment(),listenerRutina{
             itemViewModel.elementos.removeAt(pos)
             adapter.notifyDataSetChanged()
             Toast.makeText(contexto, "Rutina eliminada", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun agregarManiqui(
+        context: Context,
+        image_a: ImageView,
+        image_b: ImageView,
+        prin: List<elementosMusculo>,
+        sec: List<elementosMusculo>,
+    ) {
+        lifecycleScope.launch{
+            crearManiqui(context,image_a,image_b,prin,sec)
         }
     }
 

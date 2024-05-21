@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +29,9 @@ class reproducir_d_Fragment : Fragment() {
     lateinit var seriesTV:TextView
     lateinit var repeticionesTV:TextView
     lateinit var volumenTV:TextView
+
+    lateinit var image_a:ImageView
+    lateinit var image_b:ImageView
 
     lateinit var aceptar: Button
 
@@ -64,6 +68,24 @@ class reproducir_d_Fragment : Fragment() {
                         temp=ejer[n-1].id_ejercicio
                     }
                 }
+                val lista_1= mutableListOf<elementosMusculo>()
+                val lista_2= mutableListOf<elementosMusculo>()
+                for (ejercicio in ejer){
+                    val musc=dbPrincipal.musculosEjerciciosDAO().extraerPrimarioPorID(ejercicio.id_ejercicio)
+                    for (muscu in musc){
+                        val prin=dbPrincipal.musculoDAO().extraerPorID(muscu.num)
+                        lista_1.add(elementosMusculo(prin[0].imageMain,prin[0].is_front))
+
+                    }
+
+                    val musc_2=dbPrincipal.musculosEjerciciosDAO().extraerSecundarioPorID(ejercicio.id_ejercicio)
+                    for (muscu in musc_2){
+                        val prin=dbPrincipal.musculoDAO().extraerPorID(muscu.num)
+                        lista_2.add(elementosMusculo(prin[0].imageSecondary,prin[0].is_front))
+
+                    }
+                }
+                crearManiqui(requireContext(),image_a,image_b,lista_1,lista_2)
             }
 
             tiempoTV.setText(String.format("%02d:%02d minutos", tiempo/60, (tiempo)%60))
@@ -88,6 +110,9 @@ class reproducir_d_Fragment : Fragment() {
         seriesTV=view.findViewById(R.id.tvSeriesReproducir_D)
         repeticionesTV=view.findViewById(R.id.tvRepeticionesReproducir_D)
         volumenTV=view.findViewById(R.id.tvVolumenReproducir_D)
+
+        image_a=view.findViewById(R.id.ivCuerpoAReproducirD)
+        image_b=view.findViewById(R.id.ivCuerpoBReproducirD)
 
         aceptar=view.findViewById(R.id.btAceptarReproducir_D)
         aceptar.setOnClickListener {

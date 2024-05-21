@@ -14,12 +14,14 @@
             android:id="@+id/ivImagenRutina_A"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:src="@drawable/front"/>
         <ImageView
             android:id="@+id/ivImagenRutina_B"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:src="@drawable/back"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
