@@ -5,7 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="697dp"
+        android:layout_height="1247dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonInicio"
+        app:layout_constraintVertical_bias="0.403"
+        app:srcCompat="@drawable/fo"
+        app:layout_constrintLeft_toLeftOf="parent"
+        app:layout_constrintRight_toRightOf="parent"
+        app:layout_constrintTop_toTopOf="parent"
+        app:layout_constrintBottom_toBottomOf="parent"
+        />
     <Button
         android:id="@+id/botonInicio"
         android:layout_width="100dp"

@@ -7,7 +7,7 @@
     tools:context=".ActividadSecundaria">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarSecundario"
-
+        android:background="#03A9F4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:background="#FFFFFF"
             android:gravity="right"
             android:layout_margin="10dp">
             <TextView
