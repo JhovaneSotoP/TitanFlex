@@ -11,8 +11,14 @@ import androidx.room.RoomDatabase
         entidadEquipoEjercicio::class,
         entidadMusculoEjercicios::class,
         entidadMultimedia::class,
-        entidadCategoria::class],
-    version=8
+        entidadCategoria::class,
+        entidadRutina::class,
+        entidadRutinaEjercicios::class,
+        entidadEquipo::class,
+        entidadMusculo::class,
+        entidadEntrenamiento::class,
+        entidadEjerciciosEntrenamiento::class],
+    version=12
 )
 abstract class dbPrincipal: RoomDatabase() {
     abstract fun usersDAO():daoUsuarios
@@ -23,4 +29,10 @@ abstract class dbPrincipal: RoomDatabase() {
     abstract fun musculosEjerciciosDAO():daoMusculosEjercicios
     abstract fun multimediaDAO():daoMultimedia
     abstract fun categoriaDAO():daoCategoria
+    abstract fun rutinaDAO():daoRutina
+    abstract fun ejerciciosRutinaDAO():daoRutinaEjercicios
+    abstract fun equipoDAO():daoEquipo
+    abstract fun musculoDAO():daoMusculo
+    abstract fun enntrenamientoDAO():daoEntrenamiento
+    abstract fun seriesDAO():daoEjerciciosEntrenamiento
 }

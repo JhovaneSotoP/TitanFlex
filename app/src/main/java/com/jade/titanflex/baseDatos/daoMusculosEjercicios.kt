@@ -10,7 +10,10 @@ import androidx.room.Update
 interface daoMusculosEjercicios {
     @Query("SELECT * FROM entidadMusculoEjercicios")
     suspend fun extraerTodo():List<entidadMusculoEjercicios>
-
+    @Query("SELECT * FROM entidadMusculoEjercicios WHERE ejercicioPrincipal=:ID AND principal=1")
+    suspend fun extraerPrimarioPorID(ID:Int):List<entidadMusculoEjercicios>
+    @Query("SELECT * FROM entidadMusculoEjercicios WHERE ejercicioPrincipal=:ID AND principal=0")
+    suspend fun extraerSecundarioPorID(ID:Int):List<entidadMusculoEjercicios>
     @Insert
     suspend fun agregar(musculos: entidadMusculoEjercicios)
     @Update

@@ -10,6 +10,8 @@ import androidx.room.Update
 interface daoEquipoEjercicio {
     @Query("SELECT * FROM entidadEquipoEjercicio")
     suspend fun extraerTodo():List<entidadEquipoEjercicio>
+    @Query("SELECT * FROM entidadEquipoEjercicio WHERE ejercicioPrincipal=:id")
+    suspend fun extraerPorID(id:Int):List<entidadEquipoEjercicio>
 
     @Insert
     suspend fun agregar(equipo: entidadEquipoEjercicio)

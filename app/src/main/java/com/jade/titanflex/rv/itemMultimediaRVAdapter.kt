@@ -1,14 +1,15 @@
 package com.jade.titanflex.rv
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.jade.titanflex.OnItemClickListener
 import com.jade.titanflex.R
-import com.squareup.picasso.Picasso
 
-class itemMultimediaRVAdapter (val items:List<itemMultimediaRV>): RecyclerView.Adapter<itemMultimediaRVViewHolder>() {
+class itemMultimediaRVAdapter (val items:List<itemMultimediaRV>,private val contexto: Context): RecyclerView.Adapter<itemMultimediaRVViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): itemMultimediaRVViewHolder {
         val vista= LayoutInflater.from(parent.context).inflate(
             R.layout.item_multimedia,
@@ -22,19 +23,13 @@ class itemMultimediaRVAdapter (val items:List<itemMultimediaRV>): RecyclerView.A
 
     override fun onBindViewHolder(holder: itemMultimediaRVViewHolder, position: Int) {
         if(items[position].isImage){
-            try{
-                if (items[position].url==""){
-                    Picasso.get().load(R.drawable.no_hay_imagen).into(holder.image)
-                }else{
-                    Picasso.get().load(items[position].url).into(holder.image)
-                }
-
-                holder.video.isVisible=false
-
-            }catch (ex: Exception){
-                Picasso.get().load(R.drawable.no_hay_imagen).into(holder.image)
-                println("error en $position con ${items[position].url}")
-            }
+            println("$position - ${items[position].url}")
+            Glide.with(contexto)
+                .load(items[position].url)
+                .placeholder(R.drawable.no_hay_imagen) // opcional, una imagen de relleno mientras se carga la imagen
+                .error(R.drawable.no_hay_imagen) // opcional, una imagen de error si falla la carga
+                .into(holder.image)
+            holder.video.isVisible=false
         }else{
             holder.video.isVisible=true
         }

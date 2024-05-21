@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
         <EditText
-            android:id="@+id/descansoEntreRutinas"
+            android:id="@+id/descansoEntreSeries"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:inputType="numberDecimal"
@@ -40,7 +40,7 @@
             android:layout_gravity="center"
             android:text="Añadir ejercicio"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/descansoEntreRutinas"/>
+            app:layout_constraintTop_toBottomOf="@id/descansoEntreSeries"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCrearRutina"
             android:layout_width="match_parent"

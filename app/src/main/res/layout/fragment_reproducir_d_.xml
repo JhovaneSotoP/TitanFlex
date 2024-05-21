@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".reproducir_d_Fragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:src="@drawable/no_hay_imagen"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiempo total:"
+                        style="@style/text_subtitulo"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvTiempoReproducir_D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="00:20 minutos"
+                        style="@style/text_normal"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ejercicios: "
+                        style="@style/text_subtitulo"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvEjerciciosReproducir_D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7 Ejercicios"
+                        style="@style/text_normal"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Series: "
+                        style="@style/text_subtitulo"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvSeriesReproducir_D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7 Ejercicios"
+                        style="@style/text_normal"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repeticiones: "
+                        style="@style/text_subtitulo"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvRepeticionesReproducir_D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7 Ejercicios"
+                        style="@style/text_normal"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Volumen: "
+                        style="@style/text_subtitulo"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:id="@+id/tvVolumenReproducir_D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7 Ejercicios"
+                        style="@style/text_normal"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btAceptarReproducir_D"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aceptar"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+</FrameLayout>
