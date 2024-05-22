@@ -7,15 +7,23 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jade.titanflex.baseDatos.dbPrincipal
+import com.jade.titanflex.baseDatos.entidadEntrenamiento
+import com.jade.titanflex.rv.itemMesRVViewModel
+import com.jade.titanflex.rv.itemRutinaSistema
+import com.jade.titanflex.rv.itemRutinaSistemaRVAdapter
+import com.jade.titanflex.rv.itemRutinasSistemaRVViewModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 
 class vistaPrincipal : AppCompatActivity() {
@@ -23,10 +31,14 @@ class vistaPrincipal : AppCompatActivity() {
     lateinit var ajustes: ImageView
     lateinit var titulo:TextView
 
+    val itemViewModel: itemRutinasSistemaRVViewModel by viewModels()
+
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     val fecha= LocalDate.now()
+    var maxRacha:Int = 0
+    var racha:Int=0
 
     val ejerciciosMes= mutableListOf<elementoGrafica>()
     val repeticionesMes= mutableListOf<elementoGrafica>()
@@ -102,6 +114,9 @@ class vistaPrincipal : AppCompatActivity() {
     fun actualizarData(){
         lifecycleScope.launch {
             val dbPrincipal= Room.databaseBuilder(this@vistaPrincipal, dbPrincipal::class.java,"user_data").build()
+
+
+
             var mesAtras=fecha.minusDays(30)
 
             val entrenamientos=dbPrincipal.enntrenamientoDAO().obtenerRegistrosPosterioresA(mesAtras.dayOfMonth,mesAtras.monthValue,mesAtras.year)
@@ -162,8 +177,95 @@ class vistaPrincipal : AppCompatActivity() {
                 mesAtras=mesAtras.plusDays(1)
                 position+=1
                 println("$position")}
+
+            extraerRacha()
+
+
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun extraerRacha() {
+        val dbPrincipal= Room.databaseBuilder(this@vistaPrincipal, dbPrincipal::class.java,"user_data").build()
+        var entrenamientos=dbPrincipal.enntrenamientoDAO().extraerTodo()
+        entrenamientos=entrenamientos.reversed()
+        var mayRacha=0
+        var temp=0
+        var bandera=true
+
+        try{
+            val entrenamiento_temp=entrenamientos[0]
+            for (n in 1..entrenamientos.size-1){
+                if(sonFechasConsecutivas(entrenamiento_temp,entrenamientos[n])){
+                    if (bandera){
+                        racha+=1
+                    }
+                    temp+=1
+                }else{
+                    if(sonFechasIguales(entrenamiento_temp,entrenamientos[n])){
+
+                    }else{
+                        bandera=false
+                        if(mayRacha<temp){
+                            mayRacha=temp
+                        }
+                        temp=0
+                    }
+                }
+            }
+            maxRacha=mayRacha
+        }catch(ex:Exception){
+
+        }
+
+        println("Mayor racha ${maxRacha}")
+        println("Racha ${racha}")
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun sonFechasConsecutivas(r1: entidadEntrenamiento, r2: entidadEntrenamiento): Boolean {
+        val fecha1 = LocalDate.of(r1.anio, r1.mes, r1.dia)
+        val fecha2 = LocalDate.of(r2.anio, r2.mes, r2.dia)
+        if(ChronoUnit.DAYS.between(fecha1, fecha2).toInt()==1||ChronoUnit.DAYS.between(fecha1, fecha2).toInt()==-1){
+            println("Si entran ${r1.dia} ${r2.dia}")
+            return true
+        }
+        return false
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun sonFechasIguales(r1: entidadEntrenamiento, r2: entidadEntrenamiento): Boolean {
+        val fecha1 = LocalDate.of(r1.anio, r1.mes, r1.dia)
+        val fecha2 = LocalDate.of(r2.anio, r2.mes, r2.dia)
+        if(ChronoUnit.DAYS.between(fecha1, fecha2).toInt()==0){
+            return true
+        }
+        return false
+    }
+
+    fun actualizarRutinasRecomendadas(adapter:itemRutinaSistemaRVAdapter){
+        lifecycleScope.launch {
+            val dbPrincipal= Room.databaseBuilder(this@vistaPrincipal, dbPrincipal::class.java,"user_data").build()
+
+            val lista_colores= mutableListOf<Int>()
+            lista_colores.add(R.color.azul_a)
+            lista_colores.add(R.color.purpura_a)
+            lista_colores.add(R.color.amarillo_a)
+            lista_colores.add(R.color.rosa_a)
+            var temp=0
+
+            val rutinas=dbPrincipal.rutinaDAO().extraerPorEstado(false)
+            itemViewModel.elementos.clear()
+
+            for (n in 0..rutinas.size-1){
+                val ejercicios=dbPrincipal.ejerciciosRutinaDAO().extraerPorId(rutinas[n].id)
+                itemViewModel.elementos.add(itemRutinaSistema(rutinas[n].nombre,ejercicios.size,rutinas[n].id,0,lista_colores[temp]))
+                temp+=1
+                if(temp>lista_colores.size-1){
+                    temp=0
+                }
+            }
+            adapter.notifyDataSetChanged()
+        }
+    }
 
 }

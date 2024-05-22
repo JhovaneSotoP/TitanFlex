@@ -266,6 +266,15 @@
                         </LinearLayout>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rutina recomendadas"
+                    style="@style/text_subtitulo"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRutinasRecomendadas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
         </ScrollView>

@@ -18,7 +18,7 @@ import androidx.room.RoomDatabase
         entidadMusculo::class,
         entidadEntrenamiento::class,
         entidadEjerciciosEntrenamiento::class],
-    version=12
+    version=13
 )
 abstract class dbPrincipal: RoomDatabase() {
     abstract fun usersDAO():daoUsuarios

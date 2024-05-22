@@ -21,6 +21,7 @@ interface daoRutina {
     suspend fun ultimoID():Int
     @Query("DELETE FROM entidadRutina WHERE id=:id")
     suspend fun eliminarPorID(id:Int)
+
     @Insert
     suspend fun agregar(rutina: entidadRutina)
     @Update

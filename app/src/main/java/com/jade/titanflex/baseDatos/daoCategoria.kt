@@ -12,6 +12,8 @@ interface daoCategoria {
     suspend fun extraerTodo():List<entidadCategoria>
     @Query("SELECT * FROM entidadCategoria WHERE :id=id")
     suspend fun extraerSegunID(id:Int):List<entidadCategoria>
+    @Query("SELECT * FROM entidadCategoria LIMIT :limite")
+    fun obtenerCategoriasAleatorias( limite: Int): List<entidadCategoria>
 
     @Insert
     suspend fun agregar(categoria: entidadCategoria)
