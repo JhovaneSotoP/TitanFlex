@@ -9,68 +9,171 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp">
+                android:orientation="vertical">
 
                 <TextView
+                    style="@style/text_subtitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text_subtitulo"
-                    android:text="Informe general"/>
+                    android:text="Informe general" />
 
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_margin="20dp"/>
+                    android:layout_margin="20dp" />
+
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart_1"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_margin="20dp"/>
+                    android:layout_margin="20dp" />
+
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart_2"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_margin="20dp"/>
+                    android:layout_margin="20dp" />
+
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/lineChart_3"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_margin="20dp"/>
-
+                    android:layout_margin="20dp" />
 
 
                 <TextView
+                    style="@style/text_subtitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text_subtitulo"
-                    android:text="Racha de ejercicios"/>
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:text="Racha de ejercicios" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/text_subtitulo"
-                    android:text="Peso"/>
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/rachaEstadisticas"
+                                style="@style/text_subtitulo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="15" />
+
+                            <TextView
+                                style="@style/text_normal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" dias"
+                                app:layout_constraintBottom_toBottomOf="@id/rachaEstadisticas"
+                                app:layout_constraintLeft_toRightOf="@id/rachaEstadisticas"
+                                app:layout_constraintTop_toTopOf="@id/rachaEstadisticas" />
+
+                            <TextView
+                                style="@style/text_normal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Max. Racha"
+                                app:layout_constraintBottom_toTopOf="@id/rachaMaximaEstadisticas"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/rachaMaximaEstadisticas"
+                                style="@style/text_subtitulo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                tools:text="15" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
                 <TextView
+                    style="@style/text_subtitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/text_subtitulo"
-                    android:text="iMC"/>
+                    android:text="Peso" />
+                <Button
+                    android:id="@+id/btAgregarPeso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Agregar Registro"/>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_margin="20dp" />
+
                 <TextView
+                    style="@style/text_subtitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="IMC" />
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/imc_temp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/imc"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="Tu IMC es de: "
+                            style="@style/text_normal"
+                            />
+                        <TextView
+                            android:id="@+id/imc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toRightOf="@id/imc_temp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="23 (sobrepeso)"
+                            style="@style/text_subtitulo"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+                <TextView
                     style="@style/text_subtitulo"
-                    android:text="Historial"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Historial" />
             </LinearLayout>
 
         </ScrollView>

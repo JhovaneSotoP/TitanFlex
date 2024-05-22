@@ -12,5 +12,6 @@ data class entidadUsuarios (
     val anioNacimiento: Int,
     val unidadMasa:Int,
     val unidadDistancia:Int,
-    val unidadMedidaCorporal:Int
+    val unidadMedidaCorporal:Int,
+    val ultimoDiaConectado:Int=0
 )

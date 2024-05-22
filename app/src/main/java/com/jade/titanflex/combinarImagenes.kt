@@ -9,7 +9,9 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.PictureDrawable
 import android.graphics.drawable.VectorDrawable
 import android.net.Uri
+import android.os.Build
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.caverock.androidsvg.SVG
@@ -17,6 +19,8 @@ import com.google.gson.internal.bind.TypeAdapters.URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URL
+import java.time.LocalDate
+import java.time.Period
 
 
 fun setImageViewResource(imageView: ImageView, drawableResId: Int) {
@@ -113,3 +117,51 @@ suspend fun crearManiqui(
 
 data class elementosMusculo(val url:String,val pos:Boolean)
 data class elementoGrafica(var x:Float,var y:Float)
+
+data class IMCResult(
+    val imc: Float,
+    val rango: String
+)
+@RequiresApi(Build.VERSION_CODES.O)
+fun calcularIMCyRangoPorEdad(
+    peso: Float,
+    altura: Float,
+    genero: Int,
+    diaNacimiento: Int,
+    mesNacimiento: Int,
+    añoNacimiento: Int
+): IMCResult {
+    // Convertir altura de centímetros a metros
+    val alturaMetros = altura / 100.0
+
+    // Calcular el IMC
+    val imc = peso / (alturaMetros * alturaMetros).toFloat()
+
+    // Calcular la edad
+    val fechaNacimiento = LocalDate.of(añoNacimiento, mesNacimiento, diaNacimiento)
+    val hoy = LocalDate.now()
+    val edad = Period.between(fechaNacimiento, hoy).years
+
+    // Determinar el rango del IMC según la edad
+    val rango = when {
+        edad < 18 -> {
+            when {
+                imc < 5 -> "Desnutrición"
+                imc < 18.5 -> "Bajo peso"
+                imc < 25 -> "Peso saludable"
+                imc < 30 -> "Sobrepeso"
+                else -> "Obesidad"
+            }
+        }
+        else -> {
+            when {
+                imc < 18.5 -> "Bajo peso"
+                imc < 24.9 -> "Peso normal"
+                imc < 29.9 -> "Sobrepeso"
+                else -> "Obesidad"
+            }
+        }
+    }
+
+    return IMCResult(imc, rango)
+}

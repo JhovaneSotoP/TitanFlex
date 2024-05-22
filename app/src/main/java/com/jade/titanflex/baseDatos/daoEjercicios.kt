@@ -12,6 +12,10 @@ interface daoEjercicios {
     suspend fun extraerTodo():List<entidadEjercicio>
     @Query("SELECT * FROM entidadEjercicio WHERE id=:id")
     suspend fun extraerPorID(id:Int):List<entidadEjercicio>
+    @Query("SELECT * FROM entidadEjercicio WHERE category=:id_categoria")
+    suspend fun extraerPorCategoria(id_categoria:Int):List<entidadEjercicio>
+    @Query("SELECT * FROM entidadEjercicio WHERE category IN (:id_categorias)")
+    suspend fun extraerPorCategorias(id_categorias:List<Int>):List<entidadEjercicio>
     @Query("SELECT COUNT(*) FROM entidadEjercicio")
     suspend fun numeroRegistros():Int
     @Query("SELECT MAX(id) FROM entidadEjercicio")

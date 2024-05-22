@@ -1,6 +1,7 @@
 package com.jade.titanflex
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -8,13 +9,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.jade.titanflex.baseDatos.dbPrincipal
+import com.jade.titanflex.baseDatos.entidadRutina
+import com.jade.titanflex.rv.itemMesRVAdapter
+import com.jade.titanflex.rv.itemRutinaSistemaRVAdapter
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -26,7 +33,7 @@ import kotlinx.coroutines.launch
  * Use the [InicioFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class InicioFragment : Fragment() {
+class InicioFragment : Fragment(),listenerRutina {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +66,9 @@ class InicioFragment : Fragment() {
     lateinit var juevesCV:CardView
     lateinit var viernesCV:CardView
     lateinit var sabadoCV:CardView
+
+    lateinit var recycler: RecyclerView
+    lateinit var adapter: itemRutinaSistemaRVAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -95,6 +105,13 @@ class InicioFragment : Fragment() {
         juevesCV=view.findViewById(R.id.juevesCV)
         viernesCV=view.findViewById(R.id.viernesCV)
         sabadoCV=view.findViewById(R.id.sabadoCV)
+
+        recycler=view.findViewById(R.id.rvRutinasRecomendadas)
+        adapter=itemRutinaSistemaRVAdapter((activity as vistaPrincipal).itemViewModel.elementos,this,requireContext())
+        recycler.adapter=adapter
+        recycler.layoutManager=LinearLayoutManager(requireContext())
+
+        (activity as vistaPrincipal).actualizarRutinasRecomendadas(adapter)
 
 
         actualizarInformacionHoy()
@@ -184,6 +201,46 @@ class InicioFragment : Fragment() {
 
 
 
+
+    }
+
+    override fun reproducirRutina(id: Int) {
+        val intent=Intent(requireContext(),reproducirRutinaActivity::class.java)
+        intent.putExtra("id_rutina",id)
+        startActivity(intent)
+    }
+
+    override fun eliminarRutina(id: Int, pos: Int, contexto: Context) {
+        lifecycleScope.launch {
+            Toast.makeText(contexto, "Migrando rutina...", Toast.LENGTH_SHORT).show()
+
+            val dbPrincipal= Room.databaseBuilder(contexto, dbPrincipal::class.java,"user_data").build()
+
+
+            try {
+                val rutina=dbPrincipal.rutinaDAO().extraerPorID(id)[0]
+                val rutina_nuevo=entidadRutina(
+                    id = rutina.id,
+                    nombre = rutina.nombre,
+                    segDesc = rutina.segDesc,
+                    hechoPorUsuario = true
+                )
+                dbPrincipal.rutinaDAO().actualizar(rutina_nuevo)
+            }catch (ex:Exception){}
+
+            (activity as vistaPrincipal).itemViewModel.elementos.removeAt(pos)
+            adapter.notifyDataSetChanged()
+            Toast.makeText(contexto, "Rutina migrada", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun agregarManiqui(
+        context: Context,
+        image_a: ImageView,
+        image_b: ImageView,
+        prin: List<elementosMusculo>,
+        sec: List<elementosMusculo>,
+    ) {
 
     }
 

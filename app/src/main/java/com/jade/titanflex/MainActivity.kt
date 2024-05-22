@@ -1,10 +1,12 @@
 package com.jade.titanflex
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.jade.titanflex.api.RetrofitFactory
@@ -16,13 +18,19 @@ import com.jade.titanflex.baseDatos.entidadEquipoEjercicio
 import com.jade.titanflex.baseDatos.entidadMultimedia
 import com.jade.titanflex.baseDatos.entidadMusculo
 import com.jade.titanflex.baseDatos.entidadMusculoEjercicios
+import com.jade.titanflex.baseDatos.entidadRutina
+import com.jade.titanflex.baseDatos.entidadRutinaEjercicios
 import com.jade.titanflex.baseDatos.entidadUnidadMedida
+import com.jade.titanflex.baseDatos.entidadUsuarios
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         //Agregar datos iniciales
         lifecycleScope.launch {
             boton.isEnabled=false
+            val fecha= LocalDate.now()
 
             //Agregar unidades de medida
             if(dbPrincipal.unidadMedidaDAO().extraerTodo().isEmpty()){
@@ -87,6 +96,7 @@ class MainActivity : AppCompatActivity() {
                 dbPrincipal.categoriaDAO().agregar(categoria = entidadCategoria(9, "Piernas"))
                 dbPrincipal.categoriaDAO().agregar(categoria = entidadCategoria(13, "Hombros"))
             }
+
 
             val call=RetrofitFactory.getRetrofit()
             //val salida=call.extraerEjercicios(idLenguaje = 4)
@@ -149,6 +159,49 @@ class MainActivity : AppCompatActivity() {
                Toast.makeText(this@MainActivity,"${ex.message}",Toast.LENGTH_LONG).show()
            }
 
+            try{
+                val usuario=dbPrincipal.usersDAO().extraerTodo()
+
+                if(usuario.isEmpty()){
+                    for (n in 1..7){
+                        generarRutina(3,Random.nextInt(5,7))
+                    }
+
+                }else{
+                    var rutinas=dbPrincipal.rutinaDAO().extraerPorEstado(false)
+
+                    if(usuario[0].ultimoDiaConectado!=fecha.dayOfMonth){
+
+                        for(rutina in rutinas){
+                            dbPrincipal.rutinaDAO().eliminarPorID(rutina.id)
+                            dbPrincipal.ejerciciosRutinaDAO().eliminarPorId(rutina.id)
+                        }
+                        for (n in 1..7){
+                            generarRutina(3,Random.nextInt(5,7))
+                        }
+                        val usuario_new=entidadUsuarios(
+                                                usuario[0].id,
+                                                usuario[0].diaNacimiento,
+                                                usuario[0].mesNacimiento,
+                                                usuario[0].anioNacimiento,
+                                                usuario[0].unidadMasa,
+                                                usuario[0].unidadDistancia,
+                                                usuario[0].unidadMedidaCorporal,
+                                                fecha.dayOfMonth
+                                            )
+
+                        dbPrincipal.usersDAO().actualizar(usuario_new)
+                    }else{
+                        while (rutinas.size<=7){
+                            generarRutina(3,Random.nextInt(5,7))
+                            rutinas=dbPrincipal.rutinaDAO().extraerPorEstado(false)
+                        }
+                    }
+                }
+                println("Si accedio")
+            }catch(ex:Exception){
+                println("Error rutinas sistema ${ex.message}")
+            }
 
 
             boton.isEnabled=true
@@ -171,5 +224,38 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+
+
+    }
+    suspend fun generarRutina(maxCategorias:Int,maxEjercicios:Int){
+        val dbPrincipal= Room.databaseBuilder(this@MainActivity, dbPrincipal::class.java,"user_data").build()
+        val categorias=dbPrincipal.categoriaDAO().extraerTodo().shuffled()
+
+        val lista_a= mutableListOf<Int>()
+
+        var nombre=""
+        var temp=""
+
+        for(n in 1..Random.nextInt(1, maxCategorias)){
+            lista_a.add(categorias[n-1].id)
+            nombre+=temp+categorias[n-1].nombre
+            temp=" - "
+        }
+
+        var ejercicios=dbPrincipal.ejerciciosDAO().extraerPorCategorias(lista_a).shuffled().toMutableList()
+
+        while(ejercicios.size>maxEjercicios){
+            ejercicios.removeAt(0)
+        }
+
+        dbPrincipal.rutinaDAO().agregar(rutina = entidadRutina(nombre = nombre, segDesc = 60, hechoPorUsuario = false))
+
+        val id=dbPrincipal.rutinaDAO().ultimoID()
+
+        for (ejercicio in ejercicios){
+            dbPrincipal.ejerciciosRutinaDAO().agregar(ejercicios = entidadRutinaEjercicios(id_rutina = id, id_ejercicio = ejercicio.id))
+        }
+
+
     }
 }
