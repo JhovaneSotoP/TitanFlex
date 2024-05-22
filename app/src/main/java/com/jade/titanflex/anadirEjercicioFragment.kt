@@ -79,16 +79,16 @@ class anadirEjercicioFragment : Fragment(),OnItemClickListener {
         })
 
         recycler=view.findViewById(R.id.rvMostrarEjercicios)
-        adapter= itemMesRVAdapter(itemViewModel.elementos,this)
+        adapter= itemMesRVAdapter(itemViewModel.elementos,this,requireContext())
         recycler.adapter=adapter
 
         recycler.layoutManager= LinearLayoutManager(context)
-        actualizardatos("")
         return view
     }
 
     private fun actualizardatos(cadena:String){
         lifecycleScope.launch {
+            itemViewModel.elementos.clear()
             val dbPrincipal=
                 context?.let { Room.databaseBuilder(it, dbPrincipal::class.java,"user_data").build() }
             itemViewModel.elementos.clear()
@@ -141,19 +141,34 @@ class anadirEjercicioFragment : Fragment(),OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
+        itemViewModel.elementos.clear()
         //Toast.makeText(context,"$position",Toast.LENGTH_SHORT).show()
         val bundle=Bundle()
         bundle.putInt("id",position)
 
         parentFragmentManager.setFragmentResult("key",bundle)
-        activity?.supportFragmentManager?.commit {
+        if(activity is crearRutinaActivity){
+            (activity as crearRutinaActivity).supportFragmentManager.commit {
 
-            val nuevoFragmento = detalleEjercicioFragment()
-            replace(R.id.contenedorFrameCrearRutina, nuevoFragmento)
+                val nuevoFragmento = detalleEjercicioFragment()
+                replace(R.id.contenedorFrameCrearRutina, nuevoFragmento)
 
-            replace<detalleEjercicioFragment>(R.id.contenedorFrameCrearRutina)
-            setReorderingAllowed(true)
-            addToBackStack("replacement")
+                replace<detalleEjercicioFragment>(R.id.contenedorFrameCrearRutina)
+                setReorderingAllowed(true)
+                addToBackStack("replacement")
+            }
+        }
+
+        if(activity is reproducirRutinaActivity){
+            (activity as reproducirRutinaActivity).supportFragmentManager.commit {
+
+                val nuevoFragmento = detalleEjercicioFragment()
+                replace(R.id.contenedorFrameReproducirRutina, nuevoFragmento)
+
+                replace<detalleEjercicioFragment>(R.id.contenedorFrameReproducirRutina)
+                setReorderingAllowed(true)
+                addToBackStack("replacement")
+            }
         }
     }
 }

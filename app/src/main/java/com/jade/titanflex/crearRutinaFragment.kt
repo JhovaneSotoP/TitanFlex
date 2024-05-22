@@ -2,20 +2,30 @@ package com.jade.titanflex
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import com.google.android.material.internal.TextWatcherAdapter
+import com.jade.titanflex.baseDatos.dbPrincipal
+import com.jade.titanflex.baseDatos.entidadRutina
+import com.jade.titanflex.baseDatos.entidadRutinaEjercicios
 import com.jade.titanflex.rv.itemMesRVAdapter
 import com.jade.titanflex.rv.itemMesRVViewModel
 import com.jade.titanflex.rv.itemMultimediaRVViewModel
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,9 +51,10 @@ class crearRutinaFragment : Fragment(),OnItemClickListener {
     }
     lateinit var recycler: RecyclerView
 
-
-
     lateinit var agregarEjercicio: Button
+    lateinit var guardarRutina:Button
+    lateinit var nombreRutina:EditText
+    lateinit var tiempoDescanso:EditText
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,18 +62,16 @@ class crearRutinaFragment : Fragment(),OnItemClickListener {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_crear_rutina, container, false)
 
+        val dbPrincipal= Room.databaseBuilder(requireContext(), dbPrincipal::class.java,"user_data").build()
+
         recycler=view.findViewById(R.id.rvCrearRutina)
-        (activity as crearRutinaActivity).adapter= itemMesRVAdapter((activity as crearRutinaActivity).itemViewModel.elementos,this)
+        (activity as crearRutinaActivity).adapter= itemMesRVAdapter((activity as crearRutinaActivity).itemViewModel.elementos,this,requireContext())
         recycler.adapter=(activity as crearRutinaActivity).adapter
 
         recycler.layoutManager= LinearLayoutManager(context)
 
         agregarEjercicio=view.findViewById(R.id.btAnadirEjercicio)
         agregarEjercicio.setOnClickListener {
-            //val vista= Intent(context,ActividadSecundaria::class.java)
-            //vista.putExtra("vista",anadirEjercicioFragment::class.java)
-            //vista.putExtra("titulo","Buscar Ejercicio")
-            //startActivity(vista)
             (activity as crearRutinaActivity).nombreVentana.text="Selecciona un ejercicio"
             activity?.supportFragmentManager?.commit {
                 replace<anadirEjercicioFragment>(R.id.contenedorFrameCrearRutina)
@@ -71,7 +80,46 @@ class crearRutinaFragment : Fragment(),OnItemClickListener {
             }
         }
 
+        guardarRutina=view.findViewById(R.id.btGuardarRutina)
+        guardarRutina.setOnClickListener {
+            lifecycleScope.launch {
+                if(tiempoDescanso.text.isNullOrEmpty()){
+                    tiempoDescanso.setText("0")
+                }
+                dbPrincipal.rutinaDAO().agregar(rutina = entidadRutina(nombre = nombreRutina.text.toString(), segDesc = tiempoDescanso.text.toString().toInt()))
+                val id=dbPrincipal.rutinaDAO().ultimoID()
+                val ejercicios=(activity as crearRutinaActivity).itemViewModel.elementos
+                for(n in 1..ejercicios.size){
+                    dbPrincipal.ejerciciosRutinaDAO().agregar(ejercicios = entidadRutinaEjercicios(id_rutina = id, id_ejercicio = ejercicios[n-1].id))
+                }
+                (activity as crearRutinaActivity).finish()
+            }
+        }
+        nombreRutina=view.findViewById(R.id.nombreRutina)
+
+        nombreRutina.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                actualizarBoton()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
+        tiempoDescanso=view.findViewById(R.id.descansoEntreSeries)
+
+        actualizarBoton()
+
+
         return view
+    }
+
+    private fun actualizarBoton(){
+        guardarRutina.isEnabled = nombreRutina.text.isNotEmpty()&&(activity as crearRutinaActivity).itemViewModel.elementos.isNotEmpty()
     }
 
     companion object {
@@ -106,5 +154,6 @@ class crearRutinaFragment : Fragment(),OnItemClickListener {
         (activity as crearRutinaActivity).itemViewModel.elementos.removeAt(pos)
         (activity as crearRutinaActivity).adapter.notifyDataSetChanged()
         Toast.makeText(context,"Ejercicio eliminado",Toast.LENGTH_SHORT).show()
+        actualizarBoton()
     }
 }

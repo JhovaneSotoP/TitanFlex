@@ -45,6 +45,7 @@
                         android:layout_height="wrap_content"
                         tools:text="AKSKASDJASKJDKASDKASDJLAKSJDLASKJDLASKJDLASKDJALSKJDASLKJD"
                         style="@style/text_normal"
+                        android:textAlignment="viewStart"
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="20dp"/>
                     <TextView
@@ -74,13 +75,45 @@
                             android:layout_height="180dp"
                             android:layout_weight="1"
                             android:src="@drawable/no_hay_imagen"/>
-                        <TextView
-                            android:id="@+id/tvMusculosDetalleEjercicio"
+
+                        <ImageView
+                            android:id="@+id/ivImagenMusculoDetalleEjercicio_b"
+                            android:layout_width="0dp"
+                            android:layout_height="180dp"
+                            android:layout_weight="1"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/no_hay_imagen" />
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            style="@style/text_normal"
-                            tools:text="Mamei"/>
+                            android:layout_weight="2"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Primarios"
+                                style="@style/text_subtitulo"/>
+                            <TextView
+                                android:id="@+id/tvDetallesMusculos_a"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Primarios"
+                                style="@style/text_normal"
+                                android:textAlignment="viewStart"/>
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Secundarios"
+                                style="@style/text_subtitulo"/>
+                            <TextView
+                                android:id="@+id/tvDetallesMusculos_b"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                tools:text="Primarios"
+                                style="@style/text_normal"
+                                android:textAlignment="viewStart"/>
+                        </LinearLayout>
                     </LinearLayout>
 
 

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.TitanFlex"
         tools:targetApi="31">
         <activity
+            android:name=".reproducirRutinaActivity"
+            android:exported="false" />
+        <activity
             android:name=".crearRutinaActivity"
             android:exported="false" />
         <activity

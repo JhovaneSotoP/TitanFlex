@@ -17,8 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginLeft="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
                         <TextView
-                            android:id="@+id/minutosHoy"
+                            android:id="@+id/volumenHoy"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -75,7 +74,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Minutos"
+                            android:text="Volumen"
                             style="@style/text_normal"/>
                     </LinearLayout>
 
@@ -101,6 +100,7 @@
                             android:orientation="horizontal"
                             android:gravity="center">
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/domingoCV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/itemsemanal"
@@ -125,6 +125,7 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/lunesCV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/itemsemanal">
@@ -148,6 +149,7 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/martesCV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/itemsemanal">
@@ -170,6 +172,7 @@
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/miercolesCV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/itemsemanal">
@@ -192,6 +195,7 @@
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/juevesCV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/itemsemanal">
@@ -214,6 +218,7 @@
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/viernesCV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/itemsemanal">
@@ -236,6 +241,7 @@
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                             <androidx.cardview.widget.CardView
+                                android:id="@+id/sabadoCV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/itemsemanal">

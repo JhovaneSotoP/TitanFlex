@@ -27,11 +27,28 @@
                     android:text="Informe general"/>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_subtitulo"
-                    android:text="Historial"/>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_margin="20dp"/>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_margin="20dp"/>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_margin="20dp"/>
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_margin="20dp"/>
+
+
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -43,21 +60,17 @@
                     android:layout_height="wrap_content"
                     style="@style/text_subtitulo"
                     android:text="Peso"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_subtitulo"
-                    android:text="Masa muscular"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/text_subtitulo"
-                    android:text="Grasa corporal"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/text_subtitulo"
                     android:text="iMC"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/text_subtitulo"
+                    android:text="Historial"/>
             </LinearLayout>
 
         </ScrollView>
