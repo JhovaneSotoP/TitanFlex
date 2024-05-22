@@ -112,3 +112,4 @@ suspend fun crearManiqui(
 }
 
 data class elementosMusculo(val url:String,val pos:Boolean)
+data class elementoGrafica(var x:Float,var y:Float)

@@ -17,6 +17,8 @@ interface daoEntrenamiento {
     suspend fun ultimoID():Int
     @Query("SELECT * FROM entidadEntrenamiento WHERE dia=:dia AND mes=:mes AND anio=:anio")
     suspend fun extraerPorFecha(dia:Int,mes:Int,anio:Int):List<entidadEntrenamiento>
+    @Query("SELECT * FROM entidadEntrenamiento WHERE anio > :anio OR (anio = :anio AND mes > :mes) OR (anio = :anio AND mes = :mes AND dia > :dia)")
+    suspend fun obtenerRegistrosPosterioresA(dia: Int, mes: Int, anio: Int): List<entidadEntrenamiento>
     @Insert
     suspend fun agregar(entrenamiento: entidadEntrenamiento)
     @Update
