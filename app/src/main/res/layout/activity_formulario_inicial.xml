@@ -13,16 +13,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
                 android:layout_width="220dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
+                android:layout_margin="15dp"
                 android:background="#03A9F4"
+                android:gravity="center"
                 android:text="@string/mensajeFormulario"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:translationX="90dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -39,7 +41,6 @@
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:layout_marginEnd="16dp"
-                    app:cardBackgroundColor="@color/teal_200"
                     app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toStartOf="@id/viewFemale"
                     app:layout_constraintStart_toStartOf="parent"
@@ -48,22 +49,22 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#03A9F4"
+                        android:background="@drawable/background_with_border"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:src="@drawable/ic_male"
-                            app:tint="@color/white" />
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/Macho"
+                            app:tint="@color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/male"
                             android:textAllCaps="true"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/black" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
@@ -71,7 +72,6 @@
                     android:id="@+id/viewFemale"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
-                    app:cardBackgroundColor="@color/teal_200"
                     app:cardCornerRadius="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/viewMale"
@@ -80,22 +80,22 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#E91E63"
+                        android:background="@drawable/background_with_border"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="60dp"
-                            android:src="@drawable/ic_female"
-                            app:tint="@color/white" />
+                            android:layout_width="70dp"
+                            android:layout_height="80dp"
+                            android:src="@drawable/Hembra"
+                            app:tint="@color/black" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/female"
                             android:textAllCaps="true"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/black" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.cardview.widget.CardView>
 
@@ -114,8 +114,7 @@
                 android:layout_height="50dp"
                 android:backgroundTint="#03A9F4"
                 android:text="Ingresar fecha"
-                android:textColor="@color/black"
-                android:translationX="105dp" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:layout_width="match_parent"
