@@ -75,11 +75,14 @@
                 <Button
                     android:id="@+id/btAgregarSerie"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:text="Agregar serie"
                     app:layout_constraintTop_toBottomOf="@id/rvReproducirB"
                     app:layout_constraintStart_toStartOf="@id/rvReproducirB"
-                    app:layout_constraintEnd_toEndOf="@id/rvReproducirB"/>
+                    app:layout_constraintEnd_toEndOf="@id/rvReproducirB"
+                    style="@style/boton_a_activo"
+                    android:background="@drawable/boton_a_degradado"
+                    android:layout_margin="5dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
@@ -92,15 +95,21 @@
             <Button
                 android:id="@+id/btOmitirReproducir_B"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:text="Omitir"/>
+                android:text="Omitir"
+                style="@style/boton_a_activo"
+                android:background="@drawable/boton_b_degradado"
+                android:layout_margin="5dp"/>
             <Button
                 android:id="@+id/btContinuarReproducir_B"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Continuar"/>
+                android:text="Continuar"
+                style="@style/boton_a_activo"
+                android:background="@drawable/boton_a_degradado"
+                android:layout_margin="5dp"/>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

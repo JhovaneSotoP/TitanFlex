@@ -11,27 +11,62 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/nombreRutina"
-            android:layout_width="300dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            app:layout_constraintLeft_toLeftOf="parent"
+        <LinearLayout
+            android:id="@+id/ly"
             app:layout_constraintTop_toTopOf="parent"
-            />
-        <EditText
-            android:id="@+id/descansoEntreSeries"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:inputType="numberDecimal"
-            tools:text="50"
-            android:textAlignment="center"
-            tools:ignore="LabelFor,MissingConstraints"
-            android:importantForAutofill="no"
-            android:text="0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nombreRutina"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de rutina:"
+                    style="@style/text_subtitulo"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:id="@+id/nombreRutina"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Segundos descanso:"
+                    style="@style/text_subtitulo"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"/>
+                <EditText
+                    android:layout_weight="1"
+                    android:id="@+id/descansoEntreSeries"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:inputType="numberDecimal"
+                    tools:text="50"
+                    android:textAlignment="center"
+                    tools:ignore="LabelFor,MissingConstraints"
+                    android:importantForAutofill="no"
+                    android:text="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/nombreRutina"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+
 
         <Button
             android:id="@+id/btAnadirEjercicio"
@@ -40,7 +75,11 @@
             android:layout_gravity="center"
             android:text="Añadir ejercicio"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/descansoEntreSeries"/>
+            app:layout_constraintTop_toBottomOf="@id/ly"
+            app:layout_constraintRight_toRightOf="parent"
+            style="@style/boton_a_activo"
+            android:background="@drawable/boton_a_degradado"
+            android:layout_margin="5dp"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCrearRutina"
             android:layout_width="match_parent"
@@ -54,8 +93,11 @@
             android:layout_height="wrap_content"
             android:text="Guardar"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/rvCrearRutina"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="@style/boton_a_activo"
+            android:background="@drawable/boton_b_degradado"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

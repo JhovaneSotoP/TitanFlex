@@ -14,6 +14,7 @@ import androidx.room.Room
 import com.jade.titanflex.baseDatos.dbPrincipal
 import kotlinx.coroutines.launch
 import android.os.SystemClock
+import android.widget.ProgressBar
 import java.util.logging.Handler
 
 class reproducir_c_Fragment : Fragment() {
@@ -25,6 +26,7 @@ class reproducir_c_Fragment : Fragment() {
     private var startTime = 0L
     private var handler = android.os.Handler()
     private lateinit var updateTimerRunnable: Runnable
+    private lateinit var barra:ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,7 @@ class reproducir_c_Fragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_reproducir_c_, container, false)
+        barra=view.findViewById(R.id.progressBarC)
 
         val idRutina=(activity as reproducirRutinaActivity).id_rutina
 
@@ -41,6 +44,9 @@ class reproducir_c_Fragment : Fragment() {
             lifecycleScope.launch{
                 val dbPrincipal= Room.databaseBuilder(requireContext(), dbPrincipal::class.java,"user_data").build()
                 tiempoDescanso=dbPrincipal.rutinaDAO().extraerPorID(idRutina)[0].segDesc
+                timerTextView.setText(String.format("%02d:%02d", tiempoDescanso/60, (tiempoDescanso)%60))
+                barra.max=tiempoDescanso
+                barra.progress=tiempoDescanso
             }
         }
 
@@ -54,6 +60,7 @@ class reproducir_c_Fragment : Fragment() {
 
         timerTextView = view.findViewById(R.id.btTiempoReproducirC)
 
+
         updateTimerRunnable = object : Runnable {
             override fun run() {
                 val elapsedMillis = SystemClock.uptimeMillis() - startTime
@@ -62,6 +69,7 @@ class reproducir_c_Fragment : Fragment() {
                 val displaySeconds = seconds % 60
                 tiempoTranscurrido=tiempoDescanso-seconds
                 if(tiempoTranscurrido>=0){
+                    barra.progress=tiempoTranscurrido
                     timerTextView.text = String.format("%02d:%02d", tiempoTranscurrido/60, (tiempoDescanso-seconds)%60)
                 }
                 handler.postDelayed(this, 1000)

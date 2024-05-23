@@ -128,7 +128,10 @@
                 android:id="@+id/btAceptarReproducir_D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Aceptar"/>
+                android:text="Aceptar"
+                style="@style/boton_a_activo"
+                android:background="@drawable/boton_a_degradado"
+                android:layout_margin="5dp"/>
         </LinearLayout>
 
     </ScrollView>

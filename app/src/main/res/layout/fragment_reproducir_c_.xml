@@ -20,7 +20,20 @@
           tools:text="00:00"
           style="@style/text_titulo"/>
 
-
+      <ProgressBar
+          android:id="@+id/progressBarC"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintRight_toRightOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/btTiempoReproducirC"
+          android:progress="0"
+          android:max="100"
+          android:layout_marginRight="30dp"
+          android:layout_marginLeft="30dp"
+          android:layout_marginTop="20dp"
+          style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+          android:progressTint="@color/azul_a"/>
 
       <LinearLayout
           android:id="@+id/btsReproucirC"
@@ -34,7 +47,10 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_weight="1"
-              android:text="Continuar"/>
+              android:text="Continuar"
+              style="@style/boton_a_activo"
+              android:background="@drawable/boton_a_degradado"
+              android:layout_margin="5dp"/>
       </LinearLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
 
