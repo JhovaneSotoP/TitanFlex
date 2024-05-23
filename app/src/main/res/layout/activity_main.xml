@@ -42,6 +42,7 @@
         android:layout_marginLeft="30dp"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
         android:progressTint="@color/azul_a"/>
+
     <TextView
         android:id="@+id/tvInicioProgreso"
         android:layout_width="wrap_content"
