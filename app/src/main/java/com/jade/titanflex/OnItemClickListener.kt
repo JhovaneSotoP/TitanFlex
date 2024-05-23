@@ -22,3 +22,7 @@ interface listenerSerie{
     fun actualizarPes(peso:Float,pos:Int)
     fun eliminarItem(pos:Int)
 }
+
+interface listenerHistorial{
+    fun mostrarEjercicios(textHTML:String)
+}

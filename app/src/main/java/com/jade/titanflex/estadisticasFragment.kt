@@ -14,7 +14,11 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.text.parseAsHtml
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
@@ -23,6 +27,10 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.jade.titanflex.baseDatos.dbPrincipal
 import com.jade.titanflex.baseDatos.entidadMedidas
+import com.jade.titanflex.rv.itemHistorial
+import com.jade.titanflex.rv.itemHistorialRVAdapter
+import com.jade.titanflex.rv.itemHistorialRVViewModel
+import com.jade.titanflex.rv.itemMultimediaRVAdapter
 import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
@@ -35,7 +43,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [estadisticasFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class estadisticasFragment : Fragment() {
+class estadisticasFragment : Fragment(),listenerHistorial {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +61,11 @@ class estadisticasFragment : Fragment() {
 
     private lateinit var racha: TextView
     private lateinit var rachaMax:TextView
+
+    lateinit var recyclerView: RecyclerView
+    lateinit var adapter:itemHistorialRVAdapter
+    private val ivm:itemHistorialRVViewModel by viewModels()
+
     private val pesos= mutableListOf<elementoGrafica>()
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -80,12 +93,76 @@ class estadisticasFragment : Fragment() {
         racha.setText((activity as vistaPrincipal).racha.toString())
         rachaMax.setText((activity as vistaPrincipal).maxRacha.toString())
 
+
+        recyclerView=view.findViewById(R.id.rvHistorial)
+        adapter=itemHistorialRVAdapter(ivm.elementos,this)
+        recyclerView.adapter=adapter
+        recyclerView.layoutManager=LinearLayoutManager(requireContext())
+
+
         actualizarPesos()
         actualizarGraficas()
         actualizarIMC()
+        actualizarHistorial()
 
 
         return view
+    }
+
+    private fun actualizarHistorial() {
+        lifecycleScope.launch {
+            try{
+                val dbPrincipal= Room.databaseBuilder(requireContext(), dbPrincipal::class.java,"user_data").build()
+                val entrenamientos=dbPrincipal.enntrenamientoDAO().extraerTodoInvertido()
+                ivm.elementos.clear()
+                for(entrenamiento in entrenamientos){
+
+                    val ejercicios=dbPrincipal.seriesDAO().extraerPorEntrenamiento(entrenamiento.id)
+                    var texto=""
+
+                    var nombre_e=""
+                    var series_e=1
+                    var rep_e=0
+                    var vol_e=0.0f
+                    var ejerc=0
+
+                    var temp=ejercicios[0].id_ejercicio
+                    var temp_2=-1
+
+                     for(ejercicio in ejercicios){
+                         val nombre=dbPrincipal.ejerciciosDAO().extraerPorID(ejercicio.id_ejercicio)[0].name
+
+                         if(temp_2!=ejercicio.id_ejercicio){
+                             ejerc+=1
+                             temp_2=ejercicio.id_ejercicio
+                         }
+
+                         if(temp==ejercicio.id_ejercicio){
+                             nombre_e=nombre
+                             series_e+=1
+                             rep_e+=ejercicio.repeticiones
+                             vol_e+=ejercicio.peso
+                         }else{
+                             texto+="<li><b>$nombre_e</b> <br>$series_e series<br>$rep_e reps.<br>$vol_e kgs.</li><br>"
+                             nombre_e=nombre
+                             series_e=1
+                             rep_e=ejercicio.repeticiones
+                             vol_e=ejercicio.peso
+                         }
+                     }
+                    texto+="<li><b>$nombre_e</b> <br>$series_e series<br>$rep_e reps.<br>$vol_e kgs.</li><br>"
+                    texto="<ul>$texto</ul>"
+                    println(texto)
+
+                    val fecha="${entrenamiento.dia} - ${entrenamiento.mes} - ${entrenamiento.anio}"
+                    ivm.elementos.add(itemHistorial(fecha,entrenamiento.duracion,ejerc,texto))
+                }
+                adapter.notifyDataSetChanged()
+            }catch (ex:Exception){
+                println("${ex.message}")
+            }
+
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -105,7 +182,9 @@ class estadisticasFragment : Fragment() {
 
                 imc.setText("${imc_g.imc} (${imc_g.rango})")
 
-            }catch(ex:Exception){}
+            }catch(ex:Exception){
+                println("El error es: ${ex.message}")
+            }
         }
     }
 
@@ -143,6 +222,7 @@ class estadisticasFragment : Fragment() {
         graf.invalidate() // Refresca el gráfico
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun actualizarPesos(){
         lifecycleScope.launch{
             val dbPrincipal= Room.databaseBuilder(requireContext(), dbPrincipal::class.java,"user_data").build()
@@ -192,5 +272,20 @@ class estadisticasFragment : Fragment() {
         }
         actualizarPesos()
         actualizarGraficas()
+    }
+
+    override fun mostrarEjercicios(textHTML: String) {
+        val htmlText =textHTML
+
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Ejercicios Realizados")
+
+        val view = layoutInflater.inflate(R.layout.dialog_html, null)
+        val textView = view.findViewById<TextView>(R.id.textViewDialog)
+        textView.text = htmlText.parseAsHtml()
+
+        builder.setView(view)
+        builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+        builder.show()
     }
 }

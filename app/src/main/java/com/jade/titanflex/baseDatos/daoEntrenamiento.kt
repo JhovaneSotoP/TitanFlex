@@ -11,6 +11,8 @@ import androidx.room.Update
 interface daoEntrenamiento {
     @Query("SELECT * FROM entidadEntrenamiento")
     suspend fun extraerTodo():List<entidadEntrenamiento>
+    @Query("SELECT * FROM entidadEntrenamiento ORDER BY id DESC")
+    suspend fun extraerTodoInvertido():List<entidadEntrenamiento>
     @Query("SELECT * FROM entidadEntrenamiento WHERE id=:ID")
     suspend fun extraerPorID(ID:Int):List<entidadEntrenamiento>
     @Query("SELECT MAX(id) FROM entidadEntrenamiento")
