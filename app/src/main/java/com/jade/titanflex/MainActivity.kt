@@ -5,6 +5,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +30,8 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
-
+    lateinit var barra:ProgressBar
+    lateinit var label: TextView
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,14 +39,17 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val dbPrincipal= Room.databaseBuilder(this@MainActivity, dbPrincipal::class.java,"user_data").build()
-        val boton=findViewById<Button>(R.id.botonInicio)
+        barra=findViewById(R.id.progressBarInicio)
+        label=findViewById(R.id.tvInicioProgreso)
         //Agregar datos iniciales
         lifecycleScope.launch {
-            boton.isEnabled=false
+            barra.setProgress(0)
+            label.setText("Iniciando aplicación")
             val fecha= LocalDate.now()
 
             //Agregar unidades de medida
             if(dbPrincipal.unidadMedidaDAO().extraerTodo().isEmpty()){
+                label.setText("Agregando unidades de medida...")
                 dbPrincipal.unidadMedidaDAO().agregar(unidad = entidadUnidadMedida(1,"kg"))
                 dbPrincipal.unidadMedidaDAO().agregar(unidad = entidadUnidadMedida(2,"lb"))
                 dbPrincipal.unidadMedidaDAO().agregar(unidad = entidadUnidadMedida(3,"km"))
@@ -54,7 +60,9 @@ class MainActivity : AppCompatActivity() {
                 dbPrincipal.unidadMedidaDAO().agregar(unidad = entidadUnidadMedida(8,"minutos"))
                 dbPrincipal.unidadMedidaDAO().agregar(unidad = entidadUnidadMedida(9,"repeticiones"))
             }
+            barra.setProgress(15)
             if(dbPrincipal.equipoDAO().extraerTodo().isEmpty()){
+                label.setText("Agregando equipo...")
                 dbPrincipal.equipoDAO().agregar(equipo= entidadEquipo(1, "Barra"))
                 dbPrincipal.equipoDAO().agregar(equipo= entidadEquipo(8, "Banco"))
                 dbPrincipal.equipoDAO().agregar(equipo= entidadEquipo(3, "Mancuerna"))
@@ -67,7 +75,9 @@ class MainActivity : AppCompatActivity() {
                 dbPrincipal.equipoDAO().agregar(equipo= entidadEquipo(7, "Ninguno (ejercicio de peso corporal)"))
 
             }
+            barra.setProgress(30)
             if(dbPrincipal.musculoDAO().extraerTodo().isEmpty()){
+                label.setText("Agregando músculos...")
                 dbPrincipal.musculoDAO().agregar(musculo=entidadMusculo(id=2, nombre="Deltoides anterior", nombre_en="Hombros", is_front=true, imageMain="https://wger.de/static/images/muscles/main/muscle-2.svg", imageSecondary="https://wger.de/static/images/muscles/secondary/muscle-2.svg"))
                 dbPrincipal.musculoDAO().agregar(musculo=entidadMusculo(id=1, nombre="Bíceps braquial", nombre_en="Biceps", is_front=true, imageMain="https://wger.de/static/images/muscles/main/muscle-1.svg", imageSecondary="https://wger.de/static/images/muscles/secondary/muscle-1.svg"))
                 dbPrincipal.musculoDAO().agregar(musculo=entidadMusculo(id=11, nombre="Bíceps femoral", nombre_en="Isquiotibiales", is_front=false, imageMain="https://wger.de/static/images/muscles/main/muscle-11.svg", imageSecondary="https://wger.de/static/images/muscles/secondary/muscle-11.svg"))
@@ -85,8 +95,10 @@ class MainActivity : AppCompatActivity() {
                 dbPrincipal.musculoDAO().agregar(musculo=entidadMusculo(id=5, nombre="Tríceps braquial", nombre_en="Tríceps", is_front=false, imageMain="https://wger.de/static/images/muscles/main/muscle-5.svg", imageSecondary="https://wger.de/static/images/muscles/secondary/muscle-5.svg"))
 
             }
+            barra.setProgress(45)
             //Agregar categorias
             if(dbPrincipal.categoriaDAO().extraerTodo().isEmpty()){
+                label.setText("Agregando categorias...")
                 dbPrincipal.categoriaDAO().agregar(categoria = entidadCategoria(10, "Abs"))
                 dbPrincipal.categoriaDAO().agregar(categoria = entidadCategoria(8, "Brazos"))
                 dbPrincipal.categoriaDAO().agregar(categoria = entidadCategoria(12, "Espalda"))
@@ -97,12 +109,13 @@ class MainActivity : AppCompatActivity() {
                 dbPrincipal.categoriaDAO().agregar(categoria = entidadCategoria(13, "Hombros"))
             }
 
-
+            barra.setProgress(60)
             val call=RetrofitFactory.getRetrofit()
             //val salida=call.extraerEjercicios(idLenguaje = 4)
             //Toast.makeText(this@MainActivity,"${salida.results.size}",Toast.LENGTH_SHORT).show()
 
            try {
+               label.setText("Descargando ejercicios...")
                var ejercicios=call.extraerEjercicios()
                val maximo=ejercicios.count
                if(dbPrincipal.ejerciciosDAO().numeroRegistros()<maximo){
@@ -158,8 +171,9 @@ class MainActivity : AppCompatActivity() {
            }catch(ex:Exception){
                Toast.makeText(this@MainActivity,"${ex.message}",Toast.LENGTH_LONG).show()
            }
-
+            barra.setProgress(90)
             try{
+                label.setText("Generando rutinas...")
                 val usuario=dbPrincipal.usersDAO().extraerTodo()
 
                 if(usuario.isEmpty()){
@@ -198,32 +212,27 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                println("Si accedio")
+                label.setText("Iniciando...")
             }catch(ex:Exception){
                 println("Error rutinas sistema ${ex.message}")
             }
 
-
-            boton.isEnabled=true
+//---------------------------------------
+            barra.setProgress(100)
+            try {
+                val salida=dbPrincipal.usersDAO().extraerTodo()
+                var vista= Intent(this@MainActivity,formularioInicial::class.java)
+                if(salida.size>0){
+                    Intent(this@MainActivity, vistaPrincipal::class.java).also { vista = it }
+                }
+                startActivity(vista)
+                finish()
+            }catch (ex:Exception){
+                println("${ex.message}")
+            }
         }
         //Fin de agregar datos iniciales
 
-        boton.setOnClickListener{
-            lifecycleScope.launch{
-                try {
-                    val salida=dbPrincipal.usersDAO().extraerTodo()
-                    var vista= Intent(this@MainActivity,formularioInicial::class.java)
-                    if(salida.size>0){
-                        Intent(this@MainActivity, vistaPrincipal::class.java).also { vista = it }
-                    }
-                    startActivity(vista)
-                    finish()
-                }catch (ex:Exception){
-                    println("${ex.message}")
-                }
-            }
-
-        }
 
 
     }
