@@ -97,7 +97,7 @@
             app:layout_constraintTop_toBottomOf="@id/rvCrearRutina"
             app:layout_constraintBottom_toBottomOf="parent"
             style="@style/boton_a_activo"
-            android:background="@drawable/boton_b_degradado"/>
+            android:background="@drawable/selector_boton_a"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

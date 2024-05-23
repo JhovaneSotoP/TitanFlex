@@ -108,7 +108,7 @@
                 android:layout_weight="1"
                 android:text="Continuar"
                 style="@style/boton_a_activo"
-                android:background="@drawable/boton_a_degradado"
+                android:background="@drawable/selector_boton_a"
                 android:layout_margin="5dp"/>
         </LinearLayout>
 

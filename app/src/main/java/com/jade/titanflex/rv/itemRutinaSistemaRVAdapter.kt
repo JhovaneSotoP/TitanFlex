@@ -3,6 +3,7 @@ package com.jade.titanflex.rv
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.jade.titanflex.R
 import com.jade.titanflex.listenerRutina
@@ -30,6 +31,7 @@ class itemRutinaSistemaRVAdapter (val items:List<itemRutinaSistema>, private val
         }
 
         holder.color_Fondo.setBackgroundColor(contexto.getColor(items[position].color))
+        holder.imagen_Fondo.setImageBitmap(contexto.getDrawable(items[position].imagen)!!.toBitmap())
 
 
     }

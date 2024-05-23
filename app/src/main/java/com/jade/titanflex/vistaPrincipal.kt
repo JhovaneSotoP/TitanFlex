@@ -251,6 +251,23 @@ class vistaPrincipal : AppCompatActivity() {
             lista_colores.add(R.color.purpura_a)
             lista_colores.add(R.color.amarillo_a)
             lista_colores.add(R.color.rosa_a)
+
+            val lista_imagenes= mutableListOf<Int>()
+            lista_imagenes.add(R.drawable.rv_1)
+            lista_imagenes.add(R.drawable.rv_2)
+            lista_imagenes.add(R.drawable.rv_3)
+            lista_imagenes.add(R.drawable.rv_4)
+            lista_imagenes.add(R.drawable.rv_5)
+            lista_imagenes.add(R.drawable.rv_6)
+            lista_imagenes.add(R.drawable.rv_7)
+            lista_imagenes.add(R.drawable.rv_8)
+            lista_imagenes.add(R.drawable.rv_9)
+            lista_imagenes.add(R.drawable.rv_10)
+            lista_imagenes.add(R.drawable.rv_11)
+            lista_imagenes.add(R.drawable.rv_12)
+            lista_imagenes.add(R.drawable.rv_13)
+
+
             var temp=0
 
             val rutinas=dbPrincipal.rutinaDAO().extraerPorEstado(false)
@@ -258,7 +275,7 @@ class vistaPrincipal : AppCompatActivity() {
 
             for (n in 0..rutinas.size-1){
                 val ejercicios=dbPrincipal.ejerciciosRutinaDAO().extraerPorId(rutinas[n].id)
-                itemViewModel.elementos.add(itemRutinaSistema(rutinas[n].nombre,ejercicios.size,rutinas[n].id,0,lista_colores[temp]))
+                itemViewModel.elementos.add(itemRutinaSistema(rutinas[n].nombre,ejercicios.size,rutinas[n].id,lista_imagenes.random(),lista_colores[temp]))
                 temp+=1
                 if(temp>lista_colores.size-1){
                     temp=0
