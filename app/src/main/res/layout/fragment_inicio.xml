@@ -92,7 +92,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Objetivos Semanales"
+                            android:text="Resumen Semanal"
                             style="@style/text_subtitulo"/>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -270,7 +270,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rutina recomendadas"
-                    style="@style/text_subtitulo"/>
+                    style="@style/text_subtitulo"
+                    android:layout_marginBottom="5dp"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvRutinasRecomendadas"
                     android:layout_width="match_parent"

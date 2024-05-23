@@ -27,34 +27,46 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Informe general" />
-
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/lineChart"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_margin="20dp" />
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_margin="20dp" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/lineChart_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_margin="20dp" />
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_margin="20dp" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/lineChart_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_margin="20dp" />
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_margin="20dp" />
 
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/lineChart_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_margin="20dp" />
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChart_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp"
+                            android:layout_margin="20dp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+
 
 
                 <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     style="@style/text_subtitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,24 +128,47 @@
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
-                <TextView
-                    style="@style/text_subtitulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Peso" />
-                <Button
-                    android:id="@+id/btAgregarPeso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Agregar Registro"/>
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/lineChart_4"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_margin="20dp" />
+                    android:layout_height="wrap_content">
+                    <TextView
+                        style="@style/text_subtitulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Peso"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+                    <Button
+                        android:id="@+id/btAgregarPeso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:text="Agregar Registro"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textSize="10sp"
+                        style="@style/boton_a_activo"
+                        android:background="@drawable/boton_a_degradado"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_margin="20dp" />
+                </androidx.cardview.widget.CardView>
+
 
                 <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     style="@style/text_subtitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -170,6 +205,8 @@
                 </androidx.cardview.widget.CardView>
 
                 <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
                     style="@style/text_subtitulo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

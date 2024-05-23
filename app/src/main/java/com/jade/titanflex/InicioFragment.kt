@@ -80,10 +80,10 @@ class InicioFragment : Fragment(),listenerRutina {
 
         contenedorSemanal=view.findViewById(R.id.contenedor_semanal)
         contenedorSemanal.setOnClickListener {
-            val vista= Intent(context,ActividadSecundaria::class.java)
-            vista.putExtra("vista",objetivoSemanalFragment::class.java)
-            vista.putExtra("titulo","Objetivos Semanales")
-            startActivity(vista)
+            //val vista= Intent(context,ActividadSecundaria::class.java)
+            //vista.putExtra("vista",objetivoSemanalFragment::class.java)
+            //vista.putExtra("titulo","Objetivos Semanales")
+            //startActivity(vista)
         }
 
         ejerciciosHoy=view.findViewById(R.id.ejerciciosHoy)
@@ -139,7 +139,7 @@ class InicioFragment : Fragment(),listenerRutina {
             }
             ejerciciosHoy.setText(num_ejercicios.toString())
             repeticionesHoy.setText(num_repeticiones.toString())
-            volumenHoy.setText(num_volumen.toString())
+            volumenHoy.setText("${num_volumen} kg")
         }
 
     }
@@ -184,14 +184,19 @@ class InicioFragment : Fragment(),listenerRutina {
             for(n in 1..listaTV.size){
                 listaTV[n-1].setText(fechaIniciar.dayOfMonth.toString())
 
-                if(fechaIniciar.dayOfMonth==fecha.dayOfMonth){
-                    listaCV[n-1].background=requireContext().getDrawable(R.drawable.fondo_card_semanal)
-                }
+
 
                 val entrenamiento=dao.extraerPorFecha(fechaIniciar.dayOfMonth,fechaIniciar.monthValue,fechaIniciar.year)
 
                 if (entrenamiento.size>0){
-                    listaCV[n-1].setCardBackgroundColor(requireContext().getColor(R.color.azul_b))
+                    listaCV[n-1].setCardBackgroundColor(requireContext().getColor(R.color.azul_c))
+                    if(fechaIniciar.dayOfMonth==fecha.dayOfMonth){
+                        listaCV[n-1].background=requireContext().getDrawable(R.drawable.fondo_card_semanal_activo)
+                    }
+                }else{
+                    if(fechaIniciar.dayOfMonth==fecha.dayOfMonth){
+                        listaCV[n-1].background=requireContext().getDrawable(R.drawable.fondo_card_semanal)
+                    }
                 }
 
                 fechaIniciar=fechaIniciar.plusDays(1)

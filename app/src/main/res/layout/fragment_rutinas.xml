@@ -25,16 +25,30 @@
                     android:layout_height="wrap_content"
                     style="@style/text_subtitulo"
                     android:text="Nueva rutina"/>
-                <Button
-                    android:id="@+id/btRutinaVacia"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Iniciar entrenamiento vacio"/>
-                <Button
-                    android:id="@+id/btCrearRutina"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="crear rutina"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/btRutinaVacia"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="40dp"
+                        android:text="Entrenamiento Vacio"
+                        style="@style/boton_a_activo"
+                        android:background="@drawable/boton_a_degradado"
+                        android:layout_margin="5dp"/>
+                    <Button
+                        android:id="@+id/btCrearRutina"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="Crear Rutina"
+                        style="@style/boton_a_activo"
+                        android:layout_weight="1"
+                        android:background="@drawable/boton_b_degradado"
+                        android:layout_margin="5dp"
+                        />
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="wrap_content"
