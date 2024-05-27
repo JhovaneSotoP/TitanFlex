@@ -106,16 +106,21 @@ class InicioFragment : Fragment(),listenerRutina {
         viernesCV=view.findViewById(R.id.viernesCV)
         sabadoCV=view.findViewById(R.id.sabadoCV)
 
-        recycler=view.findViewById(R.id.rvRutinasRecomendadas)
-        adapter=itemRutinaSistemaRVAdapter((activity as vistaPrincipal).itemViewModel.elementos,this@InicioFragment,requireContext())
-        recycler.adapter=adapter
-        recycler.layoutManager=LinearLayoutManager(requireContext())
+
 
         //(activity as vistaPrincipal).actualizarRutinasRecomendadas(adapter)
 
 
         actualizarInformacionHoy()
         actualizarContenedor()
+
+
+        recycler=view.findViewById(R.id.rvRutinasRecomendadas)
+        adapter=itemRutinaSistemaRVAdapter((activity as vistaPrincipal).itemViewModel.elementos,this@InicioFragment,requireContext())
+        recycler.adapter=adapter
+        recycler.layoutManager=LinearLayoutManager(requireContext())
+
+        (activity as vistaPrincipal).adaptadorHijo=adapter
 
         return view
     }
@@ -139,7 +144,7 @@ class InicioFragment : Fragment(),listenerRutina {
             }
             ejerciciosHoy.setText(num_ejercicios.toString())
             repeticionesHoy.setText(num_repeticiones.toString())
-            volumenHoy.setText("${num_volumen} kg")
+            volumenHoy.setText(String.format("%.1f kg",num_volumen))
         }
 
     }

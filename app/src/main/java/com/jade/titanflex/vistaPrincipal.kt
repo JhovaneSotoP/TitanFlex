@@ -45,6 +45,8 @@ class vistaPrincipal : AppCompatActivity() {
     val volumenMes= mutableListOf<elementoGrafica>()
     val tiempoMes= mutableListOf<elementoGrafica>()
 
+    lateinit var adaptadorHijo:itemRutinaSistemaRVAdapter
+
 
     private lateinit var navigator:BottomNavigationView
     private val mOnNavMenu=BottomNavigationView.OnNavigationItemSelectedListener{ item ->
@@ -88,7 +90,7 @@ class vistaPrincipal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_principal)
 
-        actualizarRutinasRecomendadas()
+
 
         titulo=findViewById(R.id.tituloVentana)
         ajustes=findViewById(R.id.btAjustes)
@@ -109,6 +111,7 @@ class vistaPrincipal : AppCompatActivity() {
             //addToBackStack("replacement")
         }
         actualizarData()
+        actualizarRutinasRecomendadas()
     }
     @RequiresApi(Build.VERSION_CODES.O)
     fun actualizarData(){
@@ -281,6 +284,11 @@ class vistaPrincipal : AppCompatActivity() {
                 if(temp>lista_colores.size-1){
                     temp=0
                 }
+            }
+            try{
+                adaptadorHijo.notifyDataSetChanged()
+            }catch (ex:Exception){
+
             }
             //adapter.notifyDataSetChanged()
         }
