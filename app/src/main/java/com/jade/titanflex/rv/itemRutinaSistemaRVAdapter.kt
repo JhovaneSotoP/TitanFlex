@@ -7,6 +7,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.RecyclerView
 import com.jade.titanflex.R
 import com.jade.titanflex.listenerRutina
+import com.bumptech.glide.Glide
 
 class itemRutinaSistemaRVAdapter (val items:List<itemRutinaSistema>, private val listener: listenerRutina, private val contexto: Context): RecyclerView.Adapter<itemRutinaSistemaRVViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): itemRutinaSistemaRVViewHolder {
@@ -31,7 +32,11 @@ class itemRutinaSistemaRVAdapter (val items:List<itemRutinaSistema>, private val
         }
 
         holder.color_Fondo.setBackgroundColor(contexto.getColor(items[position].color))
-        holder.imagen_Fondo.setImageBitmap(contexto.getDrawable(items[position].imagen)!!.toBitmap())
+
+        Glide.with(contexto)
+            .load(items[position].imagen)
+            .into(holder.imagen_Fondo)
+        //holder.imagen_Fondo.setImageBitmap(contexto.getDrawable(items[position].imagen)!!.toBitmap())
 
 
     }

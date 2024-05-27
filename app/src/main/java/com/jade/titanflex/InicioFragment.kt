@@ -107,11 +107,11 @@ class InicioFragment : Fragment(),listenerRutina {
         sabadoCV=view.findViewById(R.id.sabadoCV)
 
         recycler=view.findViewById(R.id.rvRutinasRecomendadas)
-        adapter=itemRutinaSistemaRVAdapter((activity as vistaPrincipal).itemViewModel.elementos,this,requireContext())
+        adapter=itemRutinaSistemaRVAdapter((activity as vistaPrincipal).itemViewModel.elementos,this@InicioFragment,requireContext())
         recycler.adapter=adapter
         recycler.layoutManager=LinearLayoutManager(requireContext())
 
-        (activity as vistaPrincipal).actualizarRutinasRecomendadas(adapter)
+        //(activity as vistaPrincipal).actualizarRutinasRecomendadas(adapter)
 
 
         actualizarInformacionHoy()

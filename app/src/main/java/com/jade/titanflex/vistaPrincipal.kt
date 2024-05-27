@@ -88,7 +88,7 @@ class vistaPrincipal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vista_principal)
 
-
+        actualizarRutinasRecomendadas()
 
         titulo=findViewById(R.id.tituloVentana)
         ajustes=findViewById(R.id.btAjustes)
@@ -242,7 +242,8 @@ class vistaPrincipal : AppCompatActivity() {
         return false
     }
 
-    fun actualizarRutinasRecomendadas(adapter:itemRutinaSistemaRVAdapter){
+    //adapter:itemRutinaSistemaRVAdapter
+    fun actualizarRutinasRecomendadas(){
         lifecycleScope.launch {
             val dbPrincipal= Room.databaseBuilder(this@vistaPrincipal, dbPrincipal::class.java,"user_data").build()
 
@@ -281,7 +282,7 @@ class vistaPrincipal : AppCompatActivity() {
                     temp=0
                 }
             }
-            adapter.notifyDataSetChanged()
+            //adapter.notifyDataSetChanged()
         }
     }
 
