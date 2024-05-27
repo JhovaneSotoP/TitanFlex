@@ -178,6 +178,10 @@ class estadisticasFragment : Fragment(),listenerHistorial {
                 val temp_2=dbPrincipal.medidasDAO().extraerMaxIDMedida(5)
                 val altura=dbPrincipal.medidasDAO().extraerPeso(temp_2,5)[0].valor
 
+                println("Dia: ${usuario.diaNacimiento}")
+                println("Mes: ${usuario.mesNacimiento}")
+                println("Año: ${usuario.anioNacimiento}")
+
                 val imc_g= calcularIMCyRangoPorEdad(peso,altura,usuario.sexo,usuario.diaNacimiento,usuario.mesNacimiento,usuario.anioNacimiento)
 
                 imc.setText("${imc_g.imc} (${imc_g.rango})")

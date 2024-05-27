@@ -194,15 +194,19 @@ class MainActivity : AppCompatActivity() {
                             generarRutina(3,Random.nextInt(5,7))
                         }
                         val usuario_new=entidadUsuarios(
-                                                usuario[0].id,
-                                                usuario[0].diaNacimiento,
-                                                usuario[0].mesNacimiento,
-                                                usuario[0].anioNacimiento,
-                                                usuario[0].unidadMasa,
-                                                usuario[0].unidadDistancia,
-                                                usuario[0].unidadMedidaCorporal,
-                                                fecha.dayOfMonth
+                                                id = usuario[0].id,
+                                                sexo = usuario[0].sexo,
+                                                diaNacimiento = usuario[0].diaNacimiento,
+                                                mesNacimiento = usuario[0].mesNacimiento,
+                                                anioNacimiento = usuario[0].anioNacimiento,
+                                                unidadMasa = usuario[0].unidadMasa,
+                                                unidadDistancia = usuario[0].unidadDistancia,
+                                                unidadMedidaCorporal = usuario[0].unidadMedidaCorporal,
+                                                ultimoDiaConectado = fecha.dayOfMonth
                                             )
+                        println("Dia: ${usuario[0].diaNacimiento}")
+                        println("Mes: ${usuario[0].mesNacimiento}")
+                        println("Año: ${usuario[0].anioNacimiento}")
 
                         dbPrincipal.usersDAO().actualizar(usuario_new)
                     }else{

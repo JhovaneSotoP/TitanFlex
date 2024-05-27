@@ -72,7 +72,7 @@ class formularioInicial : AppCompatActivity() {
         btContinuar.setOnClickListener {
             lifecycleScope.launch {
                 try {
-                    dbPrincipal.usersDAO().agregar(usuario = entidadUsuarios(0,sexo,dia,mes,anio,1,3,5))
+                    dbPrincipal.usersDAO().agregar(usuario = entidadUsuarios(id=0,sexo= sexo, diaNacimiento = dia, mesNacimiento = mes, anioNacimiento = anio, unidadMasa = 1, unidadDistancia = 3, unidadMedidaCorporal = 5))
                     dbPrincipal.medidasDAO().agregar(medida = entidadMedidas(id_medida = 1, valor = peso, dia = fechaActual.dayOfMonth,mes=fechaActual.monthValue, anio = fechaActual.year))
                     dbPrincipal.medidasDAO().agregar(medida = entidadMedidas(id_medida = 5, valor = altura, dia = fechaActual.dayOfMonth,mes=fechaActual.monthValue, anio = fechaActual.year))
 
