@@ -22,33 +22,21 @@ import com.jade.titanflex.rv.itemMesRVAdapter
 import com.jade.titanflex.rv.itemMesRVViewModel
 import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [anadirEjercicioFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class anadirEjercicioFragment : Fragment(),OnItemClickListener {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
     lateinit var recycler: RecyclerView
     lateinit var adapter: itemMesRVAdapter
     private val itemViewModel:itemMesRVViewModel by viewModels()
     lateinit var barraBusqueda:SearchView
     lateinit var cantResultados:TextView
+    var banderaDuplicado=true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +48,8 @@ class anadirEjercicioFragment : Fragment(),OnItemClickListener {
 
         cantResultados=view.findViewById(R.id.tvCantResultadosEjercicio)
         barraBusqueda=view.findViewById(R.id.barraBusquedaEjercicios)
-        barraBusqueda.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+
+        val listenerTexto=object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
 
                 return true
@@ -70,13 +59,16 @@ class anadirEjercicioFragment : Fragment(),OnItemClickListener {
                 if(newText!=null){
                     actualizardatos(newText)
                 }else{
-                    actualizardatos("")
+                    //actualizardatos("")
                 }
                 return true
             }
 
 
-        })
+        }
+        barraBusqueda.setOnQueryTextListener(listenerTexto)
+
+        listenerTexto.onQueryTextChange("")
 
         recycler=view.findViewById(R.id.rvMostrarEjercicios)
         adapter= itemMesRVAdapter(itemViewModel.elementos,this,requireContext())
@@ -86,62 +78,53 @@ class anadirEjercicioFragment : Fragment(),OnItemClickListener {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        //actualizardatos("")
+    }
+
     private fun actualizardatos(cadena:String){
         lifecycleScope.launch {
-            itemViewModel.elementos.clear()
-            val dbPrincipal=
-                context?.let { Room.databaseBuilder(it, dbPrincipal::class.java,"user_data").build() }
-            itemViewModel.elementos.clear()
-            val salida=dbPrincipal?.ejerciciosDAO()?.extraerPorNombre(cadena)
-            if (salida!=null){
-                for(n in 1..salida.size){
-                    val categoria=dbPrincipal.categoriaDAO().extraerSegunID(salida[n-1].category)
+            if(banderaDuplicado){
+                banderaDuplicado=false
+                val dbPrincipal=
+                    context?.let { Room.databaseBuilder(it, dbPrincipal::class.java,"user_data").build() }
+                val salida=dbPrincipal?.ejerciciosDAO()?.extraerPorNombre(cadena)
+                if (salida!=null){
+                    itemViewModel.elementos.clear()
+                    for(n in 1..salida.size){
+                        val categoria=dbPrincipal.categoriaDAO().extraerSegunID(salida[n-1].category)
 
-                    var temp:String=""
-                    var desc:String=""
-                    for(k in 1..categoria.size){
-                        desc += temp
-                        desc+=categoria[k-1].nombre
-                        temp=", "
-                    }
+                        var temp:String=""
+                        var desc:String=""
+                        for(k in 1..categoria.size){
+                            desc += temp
+                            desc+=categoria[k-1].nombre
+                            temp=", "
+                        }
 
-                    var imagen:String=""
-                    val imagenes=dbPrincipal.multimediaDAO().extraerSegunID(salida[n-1].id)
-                    if(imagenes.isNotEmpty()){
-                        imagen=imagenes[0].url
+                        var imagen:String=""
+                        val imagenes=dbPrincipal.multimediaDAO().extraerSegunID(salida[n-1].id)
+                        if(imagenes.isNotEmpty()){
+                            imagen=imagenes[0].url
+                        }
+                        itemViewModel.elementos.add(itemMesRV(imagen,salida[n-1].name,desc,salida[n-1].id))
                     }
-                    itemViewModel.elementos.add(itemMesRV(imagen,salida[n-1].name,desc,salida[n-1].id))
+                    cantResultados.text="${itemViewModel.elementos.size} resultados"
+
+
+
                 }
-                cantResultados.text="${salida.size} resultados"
                 adapter.notifyDataSetChanged()
-
-
+                banderaDuplicado=true
             }
         }
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment anadirEjercicioFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            anadirEjercicioFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 
     override fun onItemClick(position: Int) {
-        itemViewModel.elementos.clear()
+        //itemViewModel.elementos.clear()
         //Toast.makeText(context,"$position",Toast.LENGTH_SHORT).show()
         val bundle=Bundle()
         bundle.putInt("id",position)
