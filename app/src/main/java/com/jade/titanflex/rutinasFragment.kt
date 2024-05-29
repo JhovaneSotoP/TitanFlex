@@ -61,7 +61,7 @@ class rutinasFragment : Fragment(),listenerRutina{
     ): View? {
         // Inflate the layout for this fragment
         val view= inflater.inflate(R.layout.fragment_rutinas, container, false)
-        val dbPrincipal= Room.databaseBuilder(requireContext(), dbPrincipal::class.java,"user_data").build()
+
 
         recyclerView=view.findViewById(R.id.rvRutinas)
         adapter= itemRutinasRVAdapter(itemViewModel.elementos,this,requireContext())
@@ -70,7 +70,28 @@ class rutinasFragment : Fragment(),listenerRutina{
 
 
 
+
+
+
+        crearRutina=view.findViewById(R.id.btCrearRutina)
+        crearRutina.setOnClickListener {
+
+            val vista= Intent(context,crearRutinaActivity::class.java)
+            startActivity(vista)
+        }
+
+        rutinaVacia=view.findViewById(R.id.btRutinaVacia)
+        rutinaVacia.setOnClickListener {
+            val intent=Intent(context,reproducirRutinaActivity::class.java)
+            startActivity(intent)
+        }
+
+        return view
+    }
+
+    private fun actualizarRutinas() {
         lifecycleScope.launch {
+            val dbPrincipal= Room.databaseBuilder(requireContext(), dbPrincipal::class.java,"user_data").build()
             val rutinas=dbPrincipal.rutinaDAO().extraerPorEstado(true)
             itemViewModel.elementos.clear()
             for (n in 1..rutinas.size){
@@ -106,26 +127,14 @@ class rutinasFragment : Fragment(),listenerRutina{
             }
             adapter.notifyDataSetChanged()
         }
-
-
-        crearRutina=view.findViewById(R.id.btCrearRutina)
-        crearRutina.setOnClickListener {
-
-            val vista= Intent(context,crearRutinaActivity::class.java)
-            startActivity(vista)
-        }
-
-        rutinaVacia=view.findViewById(R.id.btRutinaVacia)
-        rutinaVacia.setOnClickListener {
-            val intent=Intent(context,reproducirRutinaActivity::class.java)
-            startActivity(intent)
-        }
-
-        return view
     }
 
 
-
+    override fun onResume() {
+        super.onResume()
+        actualizarRutinas()
+        println("Se volvio a inicir en Resume")
+    }
 
     override fun reproducirRutina(id: Int) {
         val intent=Intent(requireContext(),reproducirRutinaActivity::class.java)
