@@ -44,6 +44,7 @@ class vistaPrincipal : AppCompatActivity() {
     val repeticionesMes= mutableListOf<elementoGrafica>()
     val volumenMes= mutableListOf<elementoGrafica>()
     val tiempoMes= mutableListOf<elementoGrafica>()
+    var indiceFragment=1
 
     lateinit var adaptadorHijo:itemRutinaSistemaRVAdapter
 
@@ -52,34 +53,43 @@ class vistaPrincipal : AppCompatActivity() {
     private val mOnNavMenu=BottomNavigationView.OnNavigationItemSelectedListener{ item ->
         when(item.itemId){
             R.id.inicioFragment->{
-                cadena="Inicio"
-                titulo.setText(cadena)
-                supportFragmentManager.commit {
-                    replace<InicioFragment>(R.id.contenedorFrame)
-                    setReorderingAllowed(true)
-                    //addToBackStack("replacement")
+                if(indiceFragment!=1){
+                    cadena="Inicio"
+                    titulo.setText(cadena)
+                    supportFragmentManager.commit {
+                        replace<InicioFragment>(R.id.contenedorFrame)
+                        setReorderingAllowed(true)
+                        //addToBackStack("replacement")
+                    }
+                    indiceFragment=1
+                    return@OnNavigationItemSelectedListener true
                 }
-                return@OnNavigationItemSelectedListener true
             }
             R.id.rutinasFragment->{
-                cadena="Rutinas"
-                titulo.setText(cadena)
-                supportFragmentManager.commit {
-                    replace<rutinasFragment>(R.id.contenedorFrame)
-                    setReorderingAllowed(true)
-                    //addToBackStack("replacement")
+                if(indiceFragment!=2){
+                    cadena="Rutinas"
+                    titulo.setText(cadena)
+                    supportFragmentManager.commit {
+                        replace<rutinasFragment>(R.id.contenedorFrame)
+                        setReorderingAllowed(true)
+                        //addToBackStack("replacement")
+                    }
+                    indiceFragment=2
+                    return@OnNavigationItemSelectedListener true
                 }
-                return@OnNavigationItemSelectedListener true
             }
             R.id.estadisticasFragment->{
-                cadena="Estadisticas"
-                titulo.setText(cadena)
-                supportFragmentManager.commit {
-                    replace<estadisticasFragment>(R.id.contenedorFrame)
-                    setReorderingAllowed(true)
-                    //addToBackStack("replacement")
+                if(indiceFragment!=3){
+                    cadena="Estadisticas"
+                    titulo.setText(cadena)
+                    supportFragmentManager.commit {
+                        replace<estadisticasFragment>(R.id.contenedorFrame)
+                        setReorderingAllowed(true)
+                        //addToBackStack("replacement")
+                    }
+                    indiceFragment=3
+                    return@OnNavigationItemSelectedListener true
                 }
-                return@OnNavigationItemSelectedListener true
             }
         }
 
